@@ -1,0 +1,378 @@
+{
+  "sitting_id": "16-tn-la-2026-03-08",
+  "date": "2026-03-08",
+  "assembly": 16,
+  "session": 4,
+  "sitting_number": 12,
+  "video": {
+    "youtube_id": "PLACEHOLDER-assembly-demo",
+    "start_offset_seconds": 0,
+    "duration_seconds": 14400
+  },
+  "official": {
+    "list_of_business": [
+      "Obituary references",
+      "Question Hour",
+      "Papers to be laid on the Table",
+      "Statement by Minister",
+      "Bills for consideration: Tamil Nadu Water Resources Amendment Bill, 2026",
+      "General discussion on demands for grants — Higher Education"
+    ],
+    "bills": [
+      { "title": "Tamil Nadu Water Resources (Amendment) Bill, 2026", "stage": "Consideration & Passing" }
+    ],
+    "questions_count": { "starred": 20, "unstarred": 106 }
+  },
+  "segments": [
+    {
+      "id": "seg_0001",
+      "start_seconds": 0,
+      "end_seconds": 420,
+      "type": "obituary",
+      "speaker": { "name": "M. Appavu", "mla_id": "mla_appavu", "party": "DMK", "role": "Speaker" },
+      "content_class": "procedural",
+      "topics": ["obituary"],
+      "transcript": "The House pays its respects to former member Thiru R. Manickam who passed away on the 3rd of March. Members observe two minutes of silence."
+    },
+    {
+      "id": "seg_0002",
+      "start_seconds": 420,
+      "end_seconds": 720,
+      "type": "question_hour",
+      "speaker": { "name": "Ma. Subramanian", "mla_id": "mla_ma_subramanian", "party": "DMK", "role": "Minister for Health" },
+      "content_class": "substantive",
+      "topics": ["health", "primary-health-centres"],
+      "transcript": "In answer to the honourable member from Villupuram — the government has sanctioned 200 additional primary health centres in the current financial year, of which 138 are already operational. Funds allocated: Rs. 412 crore."
+    },
+    {
+      "id": "seg_0003",
+      "start_seconds": 720,
+      "end_seconds": 780,
+      "type": "question_hour",
+      "speaker": { "name": "Nainar Nagenthran", "mla_id": "mla_nainar", "party": "BJP" },
+      "content_class": "substantive",
+      "topics": ["health", "tirunelveli"],
+      "transcript": "Supplementary — will the minister please clarify the timeline for the Tirunelveli medical college expansion which was announced two years ago?"
+    },
+    {
+      "id": "seg_0004",
+      "start_seconds": 780,
+      "end_seconds": 1020,
+      "type": "question_hour",
+      "speaker": { "name": "Ma. Subramanian", "mla_id": "mla_ma_subramanian", "party": "DMK", "role": "Minister for Health" },
+      "content_class": "substantive",
+      "topics": ["health", "medical-college"],
+      "transcript": "The tender for phase two has been awarded in January. Work is expected to commence next month and be completed within eighteen months."
+    },
+    {
+      "id": "seg_0005",
+      "start_seconds": 1020,
+      "end_seconds": 1500,
+      "type": "question_hour",
+      "speaker": { "name": "K. Ponmudy", "mla_id": "mla_ponmudy_k", "party": "DMK", "role": "Minister for Higher Education" },
+      "content_class": "substantive",
+      "topics": ["education", "scholarships"],
+      "transcript": "The Kalaignar scholarship scheme has disbursed grants to 3.2 lakh students this academic year. The eligibility criteria have been broadened to include children of gig-economy workers as of last quarter."
+    },
+    {
+      "id": "seg_0006",
+      "start_seconds": 1500,
+      "end_seconds": 1620,
+      "type": "question_hour",
+      "speaker": { "name": "G. K. Mani", "mla_id": "mla_ramadoss", "party": "PMK" },
+      "content_class": "attack",
+      "topics": ["education", "recruitment"],
+      "transcript": "The minister is misleading this house. The scholarship data he cites includes duplicate registrations — the actual figure is closer to two lakh, not three."
+    },
+    {
+      "id": "seg_0007",
+      "start_seconds": 1620,
+      "end_seconds": 1740,
+      "type": "question_hour",
+      "speaker": { "name": "K. Ponmudy", "mla_id": "mla_ponmudy_k", "party": "DMK", "role": "Minister for Higher Education" },
+      "content_class": "substantive",
+      "topics": ["education", "scholarships"],
+      "transcript": "The figures I cited have been audited by the Comptroller and Auditor General. I invite the honourable member to inspect the underlying registers at the department."
+    },
+    {
+      "id": "seg_0008",
+      "start_seconds": 1740,
+      "end_seconds": 1860,
+      "type": "question_hour",
+      "speaker": { "name": "Unidentified members", "mla_id": null, "party": null },
+      "content_class": "uproar",
+      "topics": [],
+      "transcript": "[Multiple members from opposition benches raising their voices simultaneously. Speaker's calls for order.]"
+    },
+    {
+      "id": "seg_0009",
+      "start_seconds": 1860,
+      "end_seconds": 1920,
+      "type": "question_hour",
+      "speaker": { "name": "M. Appavu", "mla_id": "mla_appavu", "party": "DMK", "role": "Speaker" },
+      "content_class": "procedural",
+      "topics": [],
+      "transcript": "Order, order. Honourable members will resume their seats. Question Hour will proceed."
+    },
+    {
+      "id": "seg_0010",
+      "start_seconds": 1920,
+      "end_seconds": 3600,
+      "type": "question_hour",
+      "speaker": { "name": "Duraimurugan", "mla_id": "mla_duraimurugan", "party": "DMK", "role": "Minister for Water Resources" },
+      "content_class": "substantive",
+      "topics": ["cauvery", "water", "farmers"],
+      "transcript": "On the question of the Cauvery water release from the upper riparian state — the state has filed a fresh application before the CWMA on the 4th of this month. The Chief Minister has written to the Union Jal Shakti Minister requesting an urgent intervention."
+    },
+    {
+      "id": "seg_0011",
+      "start_seconds": 3600,
+      "end_seconds": 3720,
+      "type": "papers_laid",
+      "speaker": { "name": "M. Appavu", "mla_id": "mla_appavu", "party": "DMK", "role": "Speaker" },
+      "content_class": "procedural",
+      "topics": [],
+      "transcript": "The following papers are laid on the Table: Annual report of the Tamil Nadu Pollution Control Board 2024-25; Audit report of Aavin dairy federation for the year 2024-25; Statement showing action taken on the recommendations of the Public Accounts Committee."
+    },
+    {
+      "id": "seg_0012",
+      "start_seconds": 3720,
+      "end_seconds": 4260,
+      "type": "zero_hour",
+      "speaker": { "name": "Thol. Thirumavalavan", "mla_id": "mla_thirumavalavan", "party": "VCK" },
+      "content_class": "substantive",
+      "topics": ["dalits", "manual-scavenging", "sanitation-workers"],
+      "transcript": "This house must address the continuing tragedy of deaths of sanitation workers. Six workers have died in the past three months in the state despite the mechanisation programme announced in 2023. I demand an immediate compensation of twenty-five lakh rupees per family and a firm timeline for full mechanisation."
+    },
+    {
+      "id": "seg_0013",
+      "start_seconds": 4260,
+      "end_seconds": 4740,
+      "type": "zero_hour",
+      "speaker": { "name": "Edappadi K. Palaniswami", "mla_id": "mla_eps", "party": "AIADMK", "role": "Leader of Opposition" },
+      "content_class": "attack",
+      "topics": ["law-and-order", "chennai"],
+      "transcript": "The law and order situation in the state has collapsed. The chain-snatching incidents in Chennai alone have crossed two thousand this year. This government is asleep. The Home portfolio should be handed to someone competent."
+    },
+    {
+      "id": "seg_0014",
+      "start_seconds": 4740,
+      "end_seconds": 4980,
+      "type": "zero_hour",
+      "speaker": { "name": "Unidentified members", "mla_id": null, "party": null },
+      "content_class": "uproar",
+      "topics": [],
+      "transcript": "[DMK benches thumping desks in objection. AIADMK members standing and raising slogans.]"
+    },
+    {
+      "id": "seg_0015",
+      "start_seconds": 4980,
+      "end_seconds": 5100,
+      "type": "zero_hour",
+      "speaker": { "name": "M. Appavu", "mla_id": "mla_appavu", "party": "DMK", "role": "Speaker" },
+      "content_class": "procedural",
+      "topics": [],
+      "transcript": "The honourable Leader of Opposition will kindly resume his seat. The Chief Minister will respond in due course."
+    },
+    {
+      "id": "seg_0016",
+      "start_seconds": 5100,
+      "end_seconds": 5820,
+      "type": "zero_hour",
+      "speaker": { "name": "M. K. Stalin", "mla_id": "mla_stalin_mk", "party": "DMK", "role": "Chief Minister" },
+      "content_class": "substantive",
+      "topics": ["law-and-order", "police"],
+      "transcript": "The state's crime rate has actually declined by 14 percent this year compared to the last full year under the previous government. Between 2016 and 2021, the same city saw more than 8000 chain-snatching cases. Facts should not be manufactured. The honourable member should refer to the NCRB report."
+    },
+    {
+      "id": "seg_0017",
+      "start_seconds": 5820,
+      "end_seconds": 6300,
+      "type": "zero_hour",
+      "speaker": { "name": "M. K. Stalin", "mla_id": "mla_stalin_mk", "party": "DMK", "role": "Chief Minister" },
+      "content_class": "praise",
+      "topics": ["dravidian-model"],
+      "transcript": "The Dravidian model of governance, articulated by Perarignar Anna and refined by our beloved leader Kalaignar, continues to guide this administration. Our chief architect Muthamizh Arignar Kalaignar's vision animates every scheme we launch. Under his blessing this government has become the most welfare-oriented in the country."
+    },
+    {
+      "id": "seg_0018",
+      "start_seconds": 6300,
+      "end_seconds": 6720,
+      "type": "zero_hour",
+      "speaker": { "name": "O. Panneerselvam", "mla_id": "mla_ops", "party": "AIADMK" },
+      "content_class": "praise",
+      "topics": ["mgr", "jayalalithaa"],
+      "transcript": "It was our revolutionary leader Puratchi Thalaivar MGR who first envisioned free meals for school children. The Amma canteens started by our beloved Amma Puratchi Thalaivi Dr. Jayalalithaa continue to feed lakhs of the poor every day. This is a legacy no one can erase."
+    },
+    {
+      "id": "seg_0019",
+      "start_seconds": 6720,
+      "end_seconds": 7020,
+      "type": "adjournment",
+      "speaker": { "name": "M. Appavu", "mla_id": "mla_appavu", "party": "DMK", "role": "Speaker" },
+      "content_class": "procedural",
+      "topics": [],
+      "transcript": "The House will adjourn for lunch and resume at 2 pm."
+    },
+    {
+      "id": "seg_0020",
+      "start_seconds": 7020,
+      "end_seconds": 7500,
+      "type": "bill",
+      "speaker": { "name": "Duraimurugan", "mla_id": "mla_duraimurugan", "party": "DMK", "role": "Minister for Water Resources" },
+      "content_class": "reading",
+      "topics": ["water", "bill"],
+      "transcript": "I move that the Tamil Nadu Water Resources (Amendment) Bill, 2026, be taken into consideration. The bill amends section 12 of the principal Act to enable rapid decision-making on inter-basin transfers, particularly during drought years. Clause by clause the amendments are as follows: [reads statement of objects and reasons in full]."
+    },
+    {
+      "id": "seg_0021",
+      "start_seconds": 7500,
+      "end_seconds": 8100,
+      "type": "bill",
+      "speaker": { "name": "Edappadi K. Palaniswami", "mla_id": "mla_eps", "party": "AIADMK", "role": "Leader of Opposition" },
+      "content_class": "substantive",
+      "topics": ["water", "bill", "federalism"],
+      "transcript": "The opposition supports the intent of the bill but has three specific concerns. First, section 12 as amended concentrates decision authority in the office of the minister without a statutory review committee. Second, the phrase 'exceptional circumstances' is undefined and open to abuse. Third, there is no provision for pre-decisional consultation with affected downstream districts. We propose amendments on all three points."
+    },
+    {
+      "id": "seg_0022",
+      "start_seconds": 8100,
+      "end_seconds": 8460,
+      "type": "bill",
+      "speaker": { "name": "Thol. Thirumavalavan", "mla_id": "mla_thirumavalavan", "party": "VCK" },
+      "content_class": "substantive",
+      "topics": ["water", "bill", "environment"],
+      "transcript": "I support the bill in principle. I would additionally urge the government to include a mandatory environmental impact assessment for any transfer above 100 TMC, and a clear grievance redress mechanism for farmer associations."
+    },
+    {
+      "id": "seg_0023",
+      "start_seconds": 8460,
+      "end_seconds": 8760,
+      "type": "bill",
+      "speaker": { "name": "Nainar Nagenthran", "mla_id": "mla_nainar", "party": "BJP" },
+      "content_class": "attack",
+      "topics": ["water", "centre-state"],
+      "transcript": "This bill is a distraction. The real issue is this government's refusal to engage with the Union government on Cauvery and Mullaperiyar. Political grandstanding will not bring water to farmers."
+    },
+    {
+      "id": "seg_0024",
+      "start_seconds": 8760,
+      "end_seconds": 9060,
+      "type": "bill",
+      "speaker": { "name": "Unidentified members", "mla_id": null, "party": null },
+      "content_class": "uproar",
+      "topics": [],
+      "transcript": "[Cross-talk between DMK and BJP benches. Speaker rings the bell.]"
+    },
+    {
+      "id": "seg_0025",
+      "start_seconds": 9060,
+      "end_seconds": 10500,
+      "type": "bill",
+      "speaker": { "name": "Duraimurugan", "mla_id": "mla_duraimurugan", "party": "DMK", "role": "Minister for Water Resources" },
+      "content_class": "substantive",
+      "topics": ["water", "bill"],
+      "transcript": "I thank all members for their contributions. On the concern about concentration of authority — the amended section 12(3) does require the minister to record reasons in writing which shall be laid before this House within thirty days. On the definition of 'exceptional circumstances' — we accept the honourable Leader of Opposition's suggestion and will move an official amendment during the clause-by-clause reading. On the environmental impact assessment — this is already required under the Central EIA notification and will be strictly complied with."
+    },
+    {
+      "id": "seg_0026",
+      "start_seconds": 10500,
+      "end_seconds": 10740,
+      "type": "bill",
+      "speaker": { "name": "M. Appavu", "mla_id": "mla_appavu", "party": "DMK", "role": "Speaker" },
+      "content_class": "procedural",
+      "topics": [],
+      "transcript": "The question is that the Tamil Nadu Water Resources (Amendment) Bill, 2026, as amended, be passed. Those in favour say aye. Those opposed say no. The ayes have it. The bill is passed."
+    },
+    {
+      "id": "seg_0027",
+      "start_seconds": 10740,
+      "end_seconds": 12180,
+      "type": "other",
+      "speaker": { "name": "K. Ponmudy", "mla_id": "mla_ponmudy_k", "party": "DMK", "role": "Minister for Higher Education" },
+      "content_class": "substantive",
+      "topics": ["education", "neet", "budget"],
+      "transcript": "On the demands for grants for higher education — the total allocation this year is Rs. 8,410 crore, an increase of 12 percent over last year. The Naan Mudhalvan skill programme has enrolled 6.8 lakh students. On NEET, this government continues to seek an exemption for Tamil Nadu and the House has already passed the relevant bill; we await Presidential assent."
+    },
+    {
+      "id": "seg_0028",
+      "start_seconds": 12180,
+      "end_seconds": 12900,
+      "type": "other",
+      "speaker": { "name": "G. K. Mani", "mla_id": "mla_ramadoss", "party": "PMK" },
+      "content_class": "attack",
+      "topics": ["education", "reservation"],
+      "transcript": "The minister glosses over the fact that vanniyar community students continue to be denied their rightful share under internal reservation. The 10.5 percent quota is being obstructed by administrative delays. This is a betrayal of a community that supported this government."
+    },
+    {
+      "id": "seg_0029",
+      "start_seconds": 12900,
+      "end_seconds": 13860,
+      "type": "other",
+      "speaker": { "name": "K. Ponmudy", "mla_id": "mla_ponmudy_k", "party": "DMK", "role": "Minister for Higher Education" },
+      "content_class": "substantive",
+      "topics": ["education", "reservation"],
+      "transcript": "The internal reservation is being implemented as per the Supreme Court's directions. Admission data for the current year will be tabled before this House by the end of next week."
+    },
+    {
+      "id": "seg_0030",
+      "start_seconds": 13860,
+      "end_seconds": 14400,
+      "type": "adjournment",
+      "speaker": { "name": "M. Appavu", "mla_id": "mla_appavu", "party": "DMK", "role": "Speaker" },
+      "content_class": "procedural",
+      "topics": [],
+      "transcript": "The House will now adjourn to meet again on Monday the 9th of March at 10 am."
+    }
+  ],
+  "events": [
+    { "type": "adjournment", "at_seconds": 6720, "duration_seconds": 300, "detail": "Lunch break" },
+    { "type": "marathon_speech", "at_seconds": 1920, "duration_seconds": 1680, "party": "DMK", "detail": "Minister for Water Resources — Cauvery response" }
+  ],
+  "aggregates": {
+    "speaking_time_by_party": {
+      "DMK":    9060,
+      "AIADMK": 1080,
+      "BJP":     420,
+      "INC":       0,
+      "VCK":      840,
+      "PMK":      840,
+      "CPI":       0,
+      "CPIM":      0,
+      "NTK":       0,
+      "IND":     720
+    },
+    "speaking_time_by_speaker": [
+      { "mla_id": "mla_duraimurugan",    "name": "Duraimurugan",              "party": "DMK",    "seconds": 3720 },
+      { "mla_id": "mla_ponmudy_k",       "name": "K. Ponmudy",                "party": "DMK",    "seconds": 3600 },
+      { "mla_id": "mla_stalin_mk",       "name": "M. K. Stalin",              "party": "DMK",    "seconds": 1200 },
+      { "mla_id": "mla_appavu",          "name": "M. Appavu",                 "party": "DMK",    "seconds":  720 },
+      { "mla_id": "mla_ma_subramanian",  "name": "Ma. Subramanian",           "party": "DMK",    "seconds":  540 },
+      { "mla_id": "mla_eps",             "name": "Edappadi K. Palaniswami",   "party": "AIADMK", "seconds": 1080 },
+      { "mla_id": "mla_ops",             "name": "O. Panneerselvam",          "party": "AIADMK", "seconds":  420 },
+      { "mla_id": "mla_thirumavalavan",  "name": "Thol. Thirumavalavan",      "party": "VCK",    "seconds":  840 },
+      { "mla_id": "mla_ramadoss",        "name": "G. K. Mani",                "party": "PMK",    "seconds":  840 },
+      { "mla_id": "mla_nainar",          "name": "Nainar Nagenthran",         "party": "BJP",    "seconds":  420 }
+    ],
+    "content_class_split": {
+      "substantive": 8460,
+      "procedural":  1620,
+      "praise":       780,
+      "attack":      1500,
+      "uproar":       960,
+      "reading":      480
+    },
+    "mood_series": [
+      { "t":   0, "score": 0.15 }, { "t":  10, "score": 0.20 }, { "t":  20, "score": 0.25 },
+      { "t":  30, "score": 0.30 }, { "t":  40, "score": 0.30 }, { "t":  50, "score": 0.35 },
+      { "t":  60, "score": 0.40 }, { "t":  70, "score": 0.55 }, { "t":  80, "score": 0.75 },
+      { "t":  90, "score": 0.50 }, { "t": 100, "score": 0.40 }, { "t": 110, "score": 0.45 },
+      { "t": 120, "score": 0.60 }, { "t": 130, "score": 0.90 }, { "t": 140, "score": 0.85 },
+      { "t": 150, "score": 0.55 }, { "t": 160, "score": 0.40 }, { "t": 170, "score": 0.35 },
+      { "t": 180, "score": 0.30 }, { "t": 190, "score": 0.45 }, { "t": 200, "score": 0.65 },
+      { "t": 210, "score": 0.80 }, { "t": 220, "score": 0.70 }, { "t": 230, "score": 0.55 },
+      { "t": 240, "score": 0.60 }
+    ],
+    "total_active_seconds": 14400
+  }
+}

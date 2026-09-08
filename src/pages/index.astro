@@ -1,0 +1,48 @@
+---
+import Base from '../layouts/Base.astro';
+import type { Sitting } from '../types';
+
+const sittingModules = import.meta.glob('../../data/sittings/*.json', { eager: true });
+const sittings = Object.values(sittingModules)
+  .map((mod: any) => (mod.default ?? mod) as Sitting)
+  .sort((a, b) => b.date.localeCompare(a.date));
+---
+<Base title="TN Assembly Watch — Calendar">
+  <div class="space-y-6">
+    <section>
+      <h1 class="text-2xl font-semibold">Tamil Nadu Assembly — What happened</h1>
+      <p class="mt-1 text-slate-600 dark:text-slate-400 max-w-2xl">
+        A public, post-EOD summary of every sitting. Timeline, speakers, topics, and mood —
+        every claim links back to the exact minute of the assembly video.
+      </p>
+    </section>
+
+    <section class="rounded-lg border border-slate-200 dark:border-slate-800 divide-y divide-slate-200 dark:divide-slate-800">
+      {sittings.map(s => {
+        const dateFmt = new Intl.DateTimeFormat('en-IN', {
+          weekday: 'short', year: 'numeric', month: 'short', day: 'numeric',
+        }).format(new Date(s.date));
+        const hours = (s.aggregates.total_active_seconds / 3600).toFixed(1);
+        return (
+          <a
+            href={`/sitting/${s.sitting_id}`}
+            class="flex items-center gap-4 px-4 py-3 hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors"
+          >
+            <div class="text-sm w-40 shrink-0">
+              <div class="font-medium">{dateFmt}</div>
+              <div class="text-xs text-slate-500">Sitting {s.sitting_number}</div>
+            </div>
+            <div class="text-sm text-slate-600 dark:text-slate-400 grow min-w-0 truncate">
+              {s.official.list_of_business.slice(0, 3).join(' · ')}
+              {s.official.list_of_business.length > 3 && ' …'}
+            </div>
+            <div class="text-xs text-slate-500 shrink-0 tabular-nums">{hours}h · {s.segments.length} segments</div>
+          </a>
+        );
+      })}
+      {sittings.length === 0 && (
+        <div class="px-4 py-8 text-center text-slate-500 text-sm">No sittings yet.</div>
+      )}
+    </section>
+  </div>
+</Base>

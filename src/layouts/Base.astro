@@ -1,0 +1,32 @@
+---
+import '../styles/global.css';
+export interface Props { title: string; }
+const { title } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <header class="border-b border-slate-200 dark:border-slate-800">
+      <div class="max-w-7xl mx-auto px-4 py-3 flex items-center gap-4">
+        <a href="/" class="font-semibold tracking-tight">TN Assembly Watch</a>
+        <nav class="text-sm text-slate-500 dark:text-slate-400 flex gap-4">
+          <a href="/" class="hover:text-slate-900 dark:hover:text-white">Calendar</a>
+          <a href="/about" class="hover:text-slate-900 dark:hover:text-white">Methodology</a>
+        </nav>
+        <span class="ml-auto text-xs text-slate-400">public · independent · non-partisan</span>
+      </div>
+    </header>
+    <main class="max-w-7xl mx-auto px-4 py-6">
+      <slot />
+    </main>
+    <footer class="max-w-7xl mx-auto px-4 py-8 text-xs text-slate-500 dark:text-slate-400">
+      Data derived from public assembly broadcasts. Every claim is inspectable —
+      <a href="https://github.com/" class="underline">source data</a>.
+    </footer>
+  </body>
+</html>

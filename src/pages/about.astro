@@ -1,0 +1,94 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="Methodology — TN Assembly Watch">
+  <article class="prose prose-slate dark:prose-invert max-w-3xl">
+    <h1>Methodology</h1>
+
+    <p>
+      This dashboard is a public, post-EOD summary of Tamil Nadu Legislative Assembly sittings.
+      It is independent, non-partisan, and every derived claim on the site links back to the
+      exact minute of the source video and to the underlying JSON in our open data repository.
+    </p>
+
+    <h2>Where the data comes from</h2>
+    <ul>
+      <li><strong>Video and audio</strong> — the assembly's own YouTube broadcast.</li>
+      <li><strong>Business list, questions, bills</strong> — official proceedings published by <code>assembly.tn.gov.in</code>.</li>
+      <li><strong>Speaker attribution and per-minute timing</strong> — derived via automated speech recognition
+        (Whisper large-v3) and speaker diarization (pyannote.audio), cross-referenced against the
+        official speaker list for the sitting.</li>
+      <li><strong>Content classification and topic tags</strong> — assigned by a large language model
+        (Claude Haiku 4.5) applied to each segment against the rubric below. Every classification
+        is stamped with a confidence score.</li>
+    </ul>
+
+    <h2>Content classification rubric (draft — v0)</h2>
+    <p>Every segment is placed in exactly one of these buckets.</p>
+
+    <dl class="grid grid-cols-1 md:grid-cols-2 gap-4 not-prose">
+      <div class="border border-slate-200 dark:border-slate-800 rounded p-4">
+        <dt class="font-semibold text-emerald-700 dark:text-emerald-400">Substantive</dt>
+        <dd class="text-sm text-slate-700 dark:text-slate-300 mt-1">
+          Discussion of policy, facts, budget figures, laws, or specific administrative matters.
+          Ministerial answers with concrete data. Questions demanding accountability.
+        </dd>
+      </div>
+      <div class="border border-slate-200 dark:border-slate-800 rounded p-4">
+        <dt class="font-semibold text-slate-700 dark:text-slate-300">Procedural</dt>
+        <dd class="text-sm text-slate-700 dark:text-slate-300 mt-1">
+          Motions, points of order, laying of papers, Speaker's rulings, adjournments,
+          voting formalities.
+        </dd>
+      </div>
+      <div class="border border-slate-200 dark:border-slate-800 rounded p-4">
+        <dt class="font-semibold text-pink-700 dark:text-pink-400">Praise</dt>
+        <dd class="text-sm text-slate-700 dark:text-slate-300 mt-1">
+          Extended eulogy of a party leader (living or deceased) that does not advance an argument
+          about policy. Panegyric language, honorific titles, invocation of legacy.
+        </dd>
+      </div>
+      <div class="border border-slate-200 dark:border-slate-800 rounded p-4">
+        <dt class="font-semibold text-orange-700 dark:text-orange-400">Attack</dt>
+        <dd class="text-sm text-slate-700 dark:text-slate-300 mt-1">
+          Personal or ad-hominem criticism of an individual, party, or government that does not
+          engage with policy substance. Sarcasm, insinuations, character comment.
+        </dd>
+      </div>
+      <div class="border border-slate-200 dark:border-slate-800 rounded p-4">
+        <dt class="font-semibold text-red-700 dark:text-red-400">Uproar / Disruption</dt>
+        <dd class="text-sm text-slate-700 dark:text-slate-300 mt-1">
+          Overlapping speech, sloganeering, well-based protest, chair-thumping without a
+          recognised speaker holding the floor.
+        </dd>
+      </div>
+      <div class="border border-slate-200 dark:border-slate-800 rounded p-4">
+        <dt class="font-semibold text-neutral-700 dark:text-neutral-400">Reading statement</dt>
+        <dd class="text-sm text-slate-700 dark:text-slate-300 mt-1">
+          Verbatim reading of a prepared statement, gazette, or bill text without extemporaneous
+          engagement. Statement of objects and reasons.
+        </dd>
+      </div>
+    </dl>
+
+    <p class="mt-6 text-sm text-slate-600 dark:text-slate-400">
+      This rubric is a draft. It will be revised in public before we accept community-contributed
+      corrections. Precision here matters — misclassifying substantive engagement as "praise" is
+      a form of censorship; misclassifying rhetoric as "substantive" is flattery.
+    </p>
+
+    <h2>Confidence and corrections</h2>
+    <p>
+      Every derived field carries a confidence score. Segments below a threshold are flagged for
+      human review. Anyone can inspect our raw output on GitHub and file a pull request with a
+      correction; every accepted correction re-runs the sitting's aggregates.
+    </p>
+
+    <h2>What we do not do</h2>
+    <ul>
+      <li>We do not editorialise. There are no "verdicts" on speakers or parties.</li>
+      <li>We do not modify the source video. Deep-links point to the assembly's own upload.</li>
+      <li>We do not accept advertising, donations, or funding from political parties.</li>
+    </ul>
+  </article>
+</Base>

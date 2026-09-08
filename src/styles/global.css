@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light dark;
+}
+
+html { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+body { @apply bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100; }
+
+/* Custom scrollbar in transcript panel */
+.transcript-scroll::-webkit-scrollbar { width: 6px; }
+.transcript-scroll::-webkit-scrollbar-thumb { @apply bg-slate-300 dark:bg-slate-700 rounded; }

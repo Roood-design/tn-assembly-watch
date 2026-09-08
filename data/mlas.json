@@ -1,0 +1,78 @@
+[
+  {
+    "mla_id": "mla_stalin_mk",
+    "name": "M. K. Stalin",
+    "party": "DMK",
+    "alliance": "ruling",
+    "constituency": "Kolathur",
+    "roles": ["Chief Minister", "Leader of the House"]
+  },
+  {
+    "mla_id": "mla_ponmudy_k",
+    "name": "K. Ponmudy",
+    "party": "DMK",
+    "alliance": "ruling",
+    "constituency": "Tirukkoyilur",
+    "roles": ["Minister for Higher Education"]
+  },
+  {
+    "mla_id": "mla_ma_subramanian",
+    "name": "Ma. Subramanian",
+    "party": "DMK",
+    "alliance": "ruling",
+    "constituency": "Saidapet",
+    "roles": ["Minister for Health"]
+  },
+  {
+    "mla_id": "mla_duraimurugan",
+    "name": "Duraimurugan",
+    "party": "DMK",
+    "alliance": "ruling",
+    "constituency": "Katpadi",
+    "roles": ["Minister for Water Resources"]
+  },
+  {
+    "mla_id": "mla_eps",
+    "name": "Edappadi K. Palaniswami",
+    "party": "AIADMK",
+    "alliance": "opposition",
+    "constituency": "Edappadi",
+    "roles": ["Leader of Opposition"]
+  },
+  {
+    "mla_id": "mla_ops",
+    "name": "O. Panneerselvam",
+    "party": "AIADMK",
+    "alliance": "opposition",
+    "constituency": "Bodinayakanur"
+  },
+  {
+    "mla_id": "mla_thirumavalavan",
+    "name": "Thol. Thirumavalavan",
+    "party": "VCK",
+    "alliance": "ruling",
+    "constituency": "Chidambaram"
+  },
+  {
+    "mla_id": "mla_nainar",
+    "name": "Nainar Nagenthran",
+    "party": "BJP",
+    "alliance": "opposition",
+    "constituency": "Tirunelveli"
+  },
+  {
+    "mla_id": "mla_ramadoss",
+    "name": "G. K. Mani",
+    "party": "PMK",
+    "alliance": "opposition",
+    "constituency": "Pennagaram"
+  },
+  {
+    "mla_id": "mla_appavu",
+    "name": "M. Appavu",
+    "party": "DMK",
+    "alliance": "ruling",
+    "constituency": "Radhapuram",
+    "roles": ["Speaker of the Assembly"]
+  }
+]
