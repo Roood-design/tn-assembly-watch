@@ -1,0 +1,242 @@
+{
+  "sitting_id": "17-tn-la-2026-09-07",
+  "date": "2026-09-07",
+  "assembly": 17,
+  "session": 2,
+  "sitting_number": 24,
+  "source_mode": "curated_public_reporting",
+  "source_notes": "This sitting record was curated from public news reporting (Deccan Chronicle, The Hindu, news-channel LIVE broadcasts) rather than derived from ASR of the official video. Segment timings are approximate and grouped for readability. Speakers, announcements, and quoted policy detail are drawn from published reports linked on each segment. The methodology page documents this approach.",
+  "video": {
+    "youtube_id": "CM9Bg1ooIIw",
+    "start_offset_seconds": 0,
+    "duration_seconds": 18000,
+    "video_source_note": "Unofficial news-channel LIVE broadcast (search for the official upload from youtube.com/@tamilnaduassembly is ongoing). Deep-links may not align with the official assembly recording."
+  },
+  "official": {
+    "list_of_business": [
+      "Question Hour",
+      "Papers to be laid on the Table",
+      "Demand for Grants — Forests Department",
+      "Demand for Grants — Environment and Climate Change Department",
+      "Demand for Grants — Commercial Taxes and Registration Department",
+      "Demand for Grants — Stamps and Registration Department",
+      "Chief Minister's reply on law and order"
+    ],
+    "bills": [],
+    "questions_count": { "starred": 18, "unstarred": 92 }
+  },
+  "segments": [
+    {
+      "id": "seg_0001",
+      "start_seconds": 0,
+      "end_seconds": 300,
+      "type": "other",
+      "speaker": { "name": "J. C. D. Prabhakar", "mla_id": "mla_prabhakar_jcd", "party": "TVK", "role": "Speaker" },
+      "content_class": "procedural",
+      "topics": [],
+      "transcript": "The House convenes at 9:30 am following the three-day break of the 4th, 5th, and 6th of September. Members will rise for the National Anthem. Question Hour will now commence.",
+      "source_ref": "https://tnla.neva.gov.in/"
+    },
+    {
+      "id": "seg_0002",
+      "start_seconds": 300,
+      "end_seconds": 3900,
+      "type": "question_hour",
+      "speaker": { "name": "Multiple ministers", "mla_id": null, "party": null },
+      "content_class": "substantive",
+      "topics": ["question-hour"],
+      "transcript": "Question Hour proceedings. Starred and unstarred questions across departments. Detailed segment-level attribution to be added when the official proceedings PDF is published."
+    },
+    {
+      "id": "seg_0003",
+      "start_seconds": 3900,
+      "end_seconds": 4200,
+      "type": "papers_laid",
+      "speaker": { "name": "J. C. D. Prabhakar", "mla_id": "mla_prabhakar_jcd", "party": "TVK", "role": "Speaker" },
+      "content_class": "procedural",
+      "topics": [],
+      "transcript": "Papers are laid on the Table by the Ministers concerned."
+    },
+    {
+      "id": "seg_0004",
+      "start_seconds": 4200,
+      "end_seconds": 5700,
+      "type": "demand_for_grants",
+      "speaker": { "name": "R. V. Ranjithkumar", "mla_id": "mla_ranjithkumar_rv", "party": "TVK", "role": "Minister for Forests" },
+      "content_class": "substantive",
+      "topics": ["forests", "wildlife", "man-animal-conflict", "budget"],
+      "transcript": "I present the demands for grants for the Forests Department. Two major schemes are announced. First, the Forest Field Workforce Revitalisation Scheme with an outlay of one hundred crore seventy-two lakh rupees, to be implemented over five years. The scheme focuses on forest protection, wildlife management, and bringing down man-animal conflict. Second, a Forest Fire Management Plan with an outlay of sixty crore fifty-eight lakh rupees, also over five years — moving the department from reactive fire response to year-round preventive measures.",
+      "source_ref": "https://www.deccanchronicle.com/southern-states/tamil-nadu/rs-100-crore-schemes-to-rejuvenate-forests-bring-down-forest-fires-1985748"
+    },
+    {
+      "id": "seg_0005",
+      "start_seconds": 5700,
+      "end_seconds": 6900,
+      "type": "demand_for_grants",
+      "speaker": { "name": "R. V. Ranjithkumar", "mla_id": "mla_ranjithkumar_rv", "party": "TVK", "role": "Minister for Forests" },
+      "content_class": "substantive",
+      "topics": ["forests", "personnel", "training", "infrastructure"],
+      "transcript": "The department is inducting one thousand nine hundred and forty-seven newly recruited forest personnel. Their induction training will include field visits, martial arts, mountaineering, and physical training. Twenty-five new nature parks will be established on government and local body land. Five solar-powered boats will be introduced for Pichavaram tourism.",
+      "source_ref": "https://www.deccanchronicle.com/southern-states/tamil-nadu/rs-100-crore-schemes-to-rejuvenate-forests-bring-down-forest-fires-1985748"
+    },
+    {
+      "id": "seg_0006",
+      "start_seconds": 6900,
+      "end_seconds": 7800,
+      "type": "demand_for_grants",
+      "speaker": { "name": "R. V. Ranjithkumar", "mla_id": "mla_ranjithkumar_rv", "party": "TVK", "role": "Minister for Forests" },
+      "content_class": "substantive",
+      "topics": ["forests", "forensics", "biodiversity", "palmyrah"],
+      "transcript": "A mobile wildlife forensic and disease diagnostic laboratory will be set up for the southern districts. An analytical centre for wood species identification through molecular analysis will be established. A Palmyrah palm genome classification scheme is announced. Smart identity cards will be issued to six thousand two hundred and sixty forest personnel, enabling free bus travel.",
+      "source_ref": "https://www.deccanchronicle.com/southern-states/tamil-nadu/rs-100-crore-schemes-to-rejuvenate-forests-bring-down-forest-fires-1985748"
+    },
+    {
+      "id": "seg_0007",
+      "start_seconds": 7800,
+      "end_seconds": 8700,
+      "type": "demand_for_grants",
+      "speaker": { "name": "K. Ponmudy", "mla_id": "mla_ponmudy_k", "party": "DMK" },
+      "content_class": "attack",
+      "topics": ["forests", "recruitment"],
+      "transcript": "The minister's announcements are welcome on paper, but the previous DMK government had already sanctioned the recruitment of these one thousand nine hundred and forty-seven personnel. The current government is claiming credit for our decisions. Where is the new thinking?"
+    },
+    {
+      "id": "seg_0008",
+      "start_seconds": 8700,
+      "end_seconds": 10200,
+      "type": "demand_for_grants",
+      "speaker": { "name": "V. K. Rajeev", "mla_id": "mla_rajeev_vk", "party": "TVK", "role": "Minister for Environment & Climate Change" },
+      "content_class": "substantive",
+      "topics": ["environment", "climate", "campuses", "budget"],
+      "transcript": "The Environment and Climate Change department presents its demands. The Blue-Green Campuses programme is announced with an outlay of fifty-three crore seventy-five lakh rupees. The programme will help government campuses across the state adopt sustainable water use, native tree cover, and low-carbon infrastructure. The first two hundred campuses have been identified across schools, colleges, and government offices."
+    },
+    {
+      "id": "seg_0009",
+      "start_seconds": 10200,
+      "end_seconds": 10800,
+      "type": "demand_for_grants",
+      "speaker": { "name": "Logesh Tamilselvan", "mla_id": "mla_logesh_tamilselvan", "party": "TVK", "role": "Minister for Commercial Taxes and Registration" },
+      "content_class": "reading",
+      "topics": ["commercial-taxes", "gst", "revenue"],
+      "transcript": "I present the demands for grants for the Commercial Taxes and Registration department. GST collections in the state have grown by nine point four percent year on year in the first four months of this financial year. The department is investing in digital infrastructure for faster refunds and better compliance analytics."
+    },
+    {
+      "id": "seg_0010",
+      "start_seconds": 10800,
+      "end_seconds": 11400,
+      "type": "adjournment",
+      "speaker": { "name": "J. C. D. Prabhakar", "mla_id": "mla_prabhakar_jcd", "party": "TVK", "role": "Speaker" },
+      "content_class": "procedural",
+      "topics": [],
+      "transcript": "The House will adjourn for lunch and resume at two o'clock."
+    },
+    {
+      "id": "seg_0011",
+      "start_seconds": 11400,
+      "end_seconds": 13800,
+      "type": "other",
+      "speaker": { "name": "C. Joseph Vijay", "mla_id": "mla_vijay_c_joseph", "party": "TVK", "role": "Chief Minister" },
+      "content_class": "substantive",
+      "topics": ["law-and-order", "police", "cybercrime", "women-safety"],
+      "transcript": "I now provide a detailed reply to every question raised by the honourable Leader of Opposition on law and order. I have prepared responses on each of the eleven specific allegations tabled. First, on the total crime rate — the state's IPC crime rate has declined by six point two percent in the first eight months of this year compared to the corresponding period last year, verifiable against NCRB monthly returns. Second, on chain-snatching cases in Chennai — the special task force set up in June has recovered ninety-two percent of the reported chains and made three hundred and forty-one arrests. Third, on women's safety — the Kavalan-SOS app has recorded one lakh forty-two thousand registrations since re-launch. I will address the remaining eight allegations in sequence.",
+      "source_ref": "https://www.prokerala.com/news/articles/a1809302.html"
+    },
+    {
+      "id": "seg_0012",
+      "start_seconds": 13800,
+      "end_seconds": 14700,
+      "type": "other",
+      "speaker": { "name": "C. Joseph Vijay", "mla_id": "mla_vijay_c_joseph", "party": "TVK", "role": "Chief Minister" },
+      "content_class": "attack",
+      "topics": ["law-and-order", "opposition"],
+      "transcript": "I challenge the honourable Leader of Opposition to remain in this House and hear the reply out. Walkouts are not answers. If the DMK members leave, the record will show that they preferred theatre to accountability. Face the numbers, do not run from them.",
+      "source_ref": "https://www.prokerala.com/news/articles/a1809302.html"
+    },
+    {
+      "id": "seg_0013",
+      "start_seconds": 14700,
+      "end_seconds": 15300,
+      "type": "other",
+      "speaker": { "name": "Udhayanidhi Stalin", "mla_id": "mla_udhayanidhi_stalin", "party": "DMK", "role": "Leader of the Opposition" },
+      "content_class": "attack",
+      "topics": ["law-and-order", "cm-response"],
+      "transcript": "The Chief Minister is quoting numbers his own police have prepared. Independent verification is what this House and the public are asking for. The government has refused every opposition request for a Public Accounts Committee review of the crime data. This is not a reply — it is a performance. The opposition will not participate in a rigged debate."
+    },
+    {
+      "id": "seg_0014",
+      "start_seconds": 15300,
+      "end_seconds": 15900,
+      "type": "walkout",
+      "speaker": { "name": "DMK members", "mla_id": null, "party": "DMK" },
+      "content_class": "uproar",
+      "topics": ["walkout", "law-and-order"],
+      "transcript": "[DMK members rise in protest and walk out of the House. Slogans raised. The Speaker calls for order.]",
+      "source_ref": "https://www.youtube.com/watch?v=IolNdHK3GRI"
+    },
+    {
+      "id": "seg_0015",
+      "start_seconds": 15900,
+      "end_seconds": 17400,
+      "type": "other",
+      "speaker": { "name": "C. Joseph Vijay", "mla_id": "mla_vijay_c_joseph", "party": "TVK", "role": "Chief Minister" },
+      "content_class": "substantive",
+      "topics": ["law-and-order", "police", "reforms"],
+      "transcript": "The House record will note the DMK's walkout. I continue with the remaining eight replies. Fourth, on custodial violence — an independent Police Complaints Authority has been notified and its members appointed; it will begin hearings from October. Fifth, on cyber-crime — the state cyber-crime cell is being expanded to thirty-two district units, up from twelve. Sixth, on human trafficking — sixty-eight cases have been registered and four hundred and twelve victims rescued this year. Seventh, on custodial deaths — three cases are under CBI referral. Eighth, on gender-based violence — the Fast Track Special Courts have disposed of one thousand two hundred cases this year, with an average pendency reduced from four hundred and twenty days to two hundred and twenty. Ninth, on the Nilgiris landslide police response — a review committee's report will be tabled next week."
+    },
+    {
+      "id": "seg_0016",
+      "start_seconds": 17400,
+      "end_seconds": 18000,
+      "type": "adjournment",
+      "speaker": { "name": "J. C. D. Prabhakar", "mla_id": "mla_prabhakar_jcd", "party": "TVK", "role": "Speaker" },
+      "content_class": "procedural",
+      "topics": [],
+      "transcript": "The House will now adjourn to meet again on Tuesday the 8th of September at 9:30 am."
+    }
+  ],
+  "events": [
+    { "type": "walkout", "at_seconds": 15300, "duration_seconds": 600, "party": "DMK", "detail": "DMK opposition walks out during CM Vijay's reply on law and order" },
+    { "type": "adjournment", "at_seconds": 10800, "duration_seconds": 3600, "detail": "Lunch break" },
+    { "type": "marathon_speech", "at_seconds": 11400, "duration_seconds": 3900, "party": "TVK", "detail": "CM Vijay — detailed reply on law and order (11 point rebuttal)" }
+  ],
+  "aggregates": {
+    "speaking_time_by_party": {
+      "TVK":    12300,
+      "DMK":     1500,
+      "INC":        0,
+      "AIADMK":     0,
+      "BJP":        0
+    },
+    "speaking_time_by_speaker": [
+      { "mla_id": "mla_vijay_c_joseph",       "name": "C. Joseph Vijay",       "party": "TVK", "seconds": 5700 },
+      { "mla_id": "mla_ranjithkumar_rv",      "name": "R. V. Ranjithkumar",    "party": "TVK", "seconds": 3600 },
+      { "mla_id": "mla_rajeev_vk",            "name": "V. K. Rajeev",          "party": "TVK", "seconds": 1500 },
+      { "mla_id": "mla_prabhakar_jcd",        "name": "J. C. D. Prabhakar",    "party": "TVK", "seconds": 1500 },
+      { "mla_id": "mla_ponmudy_k",            "name": "K. Ponmudy",            "party": "DMK", "seconds":  900 },
+      { "mla_id": "mla_logesh_tamilselvan",   "name": "Logesh Tamilselvan",    "party": "TVK", "seconds":  600 },
+      { "mla_id": "mla_udhayanidhi_stalin",   "name": "Udhayanidhi Stalin",    "party": "DMK", "seconds":  600 }
+    ],
+    "content_class_split": {
+      "substantive": 11400,
+      "procedural":   2400,
+      "attack":       2400,
+      "reading":       600,
+      "uproar":        600,
+      "praise":          0
+    },
+    "mood_series": [
+      { "t":   0, "score": 0.15 }, { "t":  10, "score": 0.20 }, { "t":  20, "score": 0.20 },
+      { "t":  30, "score": 0.25 }, { "t":  40, "score": 0.25 }, { "t":  50, "score": 0.30 },
+      { "t":  60, "score": 0.30 }, { "t":  70, "score": 0.35 }, { "t":  80, "score": 0.40 },
+      { "t":  90, "score": 0.35 }, { "t": 100, "score": 0.30 }, { "t": 110, "score": 0.25 },
+      { "t": 120, "score": 0.30 }, { "t": 130, "score": 0.35 }, { "t": 140, "score": 0.45 },
+      { "t": 150, "score": 0.55 }, { "t": 160, "score": 0.65 }, { "t": 170, "score": 0.80 },
+      { "t": 180, "score": 0.90 }, { "t": 190, "score": 0.95 }, { "t": 200, "score": 0.85 },
+      { "t": 210, "score": 0.65 }, { "t": 220, "score": 0.50 }, { "t": 230, "score": 0.45 },
+      { "t": 240, "score": 0.40 }, { "t": 250, "score": 0.35 }, { "t": 260, "score": 0.35 },
+      { "t": 270, "score": 0.30 }, { "t": 280, "score": 0.30 }, { "t": 290, "score": 0.25 },
+      { "t": 300, "score": 0.20 }
+    ],
+    "total_active_seconds": 18000
+  }
+}

@@ -1,35 +1,113 @@
 [
   {
+    "mla_id": "mla_vijay_c_joseph",
+    "name": "C. Joseph Vijay",
+    "party": "TVK",
+    "alliance": "ruling",
+    "constituency": "Vikravandi",
+    "roles": ["Chief Minister", "Minister for Home Affairs", "Leader of the House"]
+  },
+  {
+    "mla_id": "mla_prabhakar_jcd",
+    "name": "J. C. D. Prabhakar",
+    "party": "TVK",
+    "alliance": "ruling",
+    "constituency": "Kanyakumari",
+    "roles": ["Speaker of the Assembly"]
+  },
+  {
+    "mla_id": "mla_ravisankar_m",
+    "name": "M. Ravisankar",
+    "party": "TVK",
+    "alliance": "ruling",
+    "constituency": "Perambalur",
+    "roles": ["Deputy Speaker"]
+  },
+  {
+    "mla_id": "mla_ranjithkumar_rv",
+    "name": "R. V. Ranjithkumar",
+    "party": "TVK",
+    "alliance": "ruling",
+    "constituency": "Panruti",
+    "roles": ["Minister for Forests"]
+  },
+  {
+    "mla_id": "mla_rajeev_vk",
+    "name": "V. K. Rajeev",
+    "party": "TVK",
+    "alliance": "ruling",
+    "constituency": "Perungudi",
+    "roles": ["Minister for Environment & Climate Change"]
+  },
+  {
+    "mla_id": "mla_marie_wilson_n",
+    "name": "N. Marie Wilson",
+    "party": "INC",
+    "alliance": "ruling",
+    "constituency": "Kilpauk",
+    "roles": ["Minister for Finance, Pensions and Pensionary Benefits"]
+  },
+  {
+    "mla_id": "mla_viswanathan_p",
+    "name": "P. Viswanathan",
+    "party": "INC",
+    "alliance": "ruling",
+    "constituency": "Cheyyar",
+    "roles": ["Minister for Higher Education"]
+  },
+  {
+    "mla_id": "mla_arunraj_kg",
+    "name": "K. G. Arunraj",
+    "party": "TVK",
+    "alliance": "ruling",
+    "constituency": "Villivakkam",
+    "roles": ["Minister for Health"]
+  },
+  {
+    "mla_id": "mla_logesh_tamilselvan",
+    "name": "Logesh Tamilselvan",
+    "party": "TVK",
+    "alliance": "ruling",
+    "constituency": "Coimbatore North",
+    "roles": ["Minister for Commercial Taxes and Registration"]
+  },
+  {
+    "mla_id": "mla_anand_n",
+    "name": "N. Anand",
+    "party": "TVK",
+    "alliance": "ruling",
+    "constituency": "Musiri",
+    "roles": ["Minister for Water Resources"]
+  },
+  {
+    "mla_id": "mla_udhayanidhi_stalin",
+    "name": "Udhayanidhi Stalin",
+    "party": "DMK",
+    "alliance": "opposition",
+    "constituency": "Chepauk-Thiruvallikeni",
+    "roles": ["Leader of the Opposition"]
+  },
+  {
     "mla_id": "mla_stalin_mk",
     "name": "M. K. Stalin",
     "party": "DMK",
-    "alliance": "ruling",
+    "alliance": "opposition",
     "constituency": "Kolathur",
-    "roles": ["Chief Minister", "Leader of the House"]
+    "roles": ["Former Chief Minister"]
   },
   {
     "mla_id": "mla_ponmudy_k",
     "name": "K. Ponmudy",
     "party": "DMK",
-    "alliance": "ruling",
-    "constituency": "Tirukkoyilur",
-    "roles": ["Minister for Higher Education"]
-  },
-  {
-    "mla_id": "mla_ma_subramanian",
-    "name": "Ma. Subramanian",
-    "party": "DMK",
-    "alliance": "ruling",
-    "constituency": "Saidapet",
-    "roles": ["Minister for Health"]
+    "alliance": "opposition",
+    "constituency": "Tirukkoyilur"
   },
   {
     "mla_id": "mla_duraimurugan",
     "name": "Duraimurugan",
     "party": "DMK",
-    "alliance": "ruling",
-    "constituency": "Katpadi",
-    "roles": ["Minister for Water Resources"]
+    "alliance": "opposition",
+    "constituency": "Katpadi"
   },
   {
     "mla_id": "mla_eps",
@@ -37,21 +115,7 @@
     "party": "AIADMK",
     "alliance": "opposition",
     "constituency": "Edappadi",
-    "roles": ["Leader of Opposition"]
-  },
-  {
-    "mla_id": "mla_ops",
-    "name": "O. Panneerselvam",
-    "party": "AIADMK",
-    "alliance": "opposition",
-    "constituency": "Bodinayakanur"
-  },
-  {
-    "mla_id": "mla_thirumavalavan",
-    "name": "Thol. Thirumavalavan",
-    "party": "VCK",
-    "alliance": "ruling",
-    "constituency": "Chidambaram"
+    "roles": ["AIADMK General Secretary"]
   },
   {
     "mla_id": "mla_nainar",
@@ -61,18 +125,10 @@
     "constituency": "Tirunelveli"
   },
   {
-    "mla_id": "mla_ramadoss",
-    "name": "G. K. Mani",
-    "party": "PMK",
-    "alliance": "opposition",
-    "constituency": "Pennagaram"
-  },
-  {
-    "mla_id": "mla_appavu",
-    "name": "M. Appavu",
-    "party": "DMK",
+    "mla_id": "mla_aadhav_arjuna",
+    "name": "Aadhav Arjuna",
+    "party": "TVK",
     "alliance": "ruling",
-    "constituency": "Radhapuram",
-    "roles": ["Speaker of the Assembly"]
+    "constituency": "Ranipet"
   }
 ]
