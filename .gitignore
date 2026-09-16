@@ -18,6 +18,14 @@ node_modules/
 # Claude Code per-user settings
 .claude/
 
+# Ingestion pipeline
+pipeline/.venv/
+pipeline/.env
+pipeline/cache/*
+!pipeline/cache/.gitkeep
+__pycache__/
+*.pyc
+
 # Logs
 npm-debug.log*
 yarn-debug.log*

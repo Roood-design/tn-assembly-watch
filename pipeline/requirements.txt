@@ -1,0 +1,4 @@
+yt-dlp>=2025.9.5,<2026.0.0
+requests>=2.32.0
+python-dotenv>=1.0.1
+anthropic>=0.40.0
