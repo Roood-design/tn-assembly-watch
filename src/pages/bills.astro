@@ -1,0 +1,119 @@
+---
+import Base from '../layouts/Base.astro';
+import { allSittings } from '../lib/sittings';
+
+interface BillRow {
+  title: string;
+  stage: string;
+  firstSeen: string;
+  lastSeen: string;
+  sittingIds: string[];
+}
+
+const byTitle = new Map<string, BillRow>();
+for (const s of allSittings) {
+  for (const b of s.official.bills) {
+    const cur = byTitle.get(b.title) ?? {
+      title: b.title,
+      stage: b.stage,
+      firstSeen: s.date,
+      lastSeen: s.date,
+      sittingIds: [s.sitting_id],
+    };
+    if (s.date < cur.firstSeen) cur.firstSeen = s.date;
+    if (s.date > cur.lastSeen) { cur.lastSeen = s.date; cur.stage = b.stage; }
+    if (!cur.sittingIds.includes(s.sitting_id)) cur.sittingIds.push(s.sitting_id);
+    byTitle.set(b.title, cur);
+  }
+}
+
+const bills = [...byTitle.values()].sort((a, b) => b.lastSeen.localeCompare(a.lastSeen));
+
+const stageColor: Record<string, string> = {
+  'Introduction': '#3b82f6',
+  'First Reading': '#3b82f6',
+  'Consideration & Passing': '#0891b2',
+  'Passed': '#059669',
+  'Referred to Committee': '#eab308',
+  'Withdrawn': '#94a3b8',
+};
+---
+<Base title="Bills — TN Assembly Watch" current="bills">
+  <header class="page-head">
+    <div class="page-eyebrow">Legislation</div>
+    <h1>Bills tracker</h1>
+    <p class="page-sub">
+      Every bill introduced, debated, or passed in the sittings we've recorded. Click through to the sitting where the latest activity happened.
+    </p>
+  </header>
+
+  {bills.length === 0 ? (
+    <div class="empty">
+      <div class="empty-icon">§</div>
+      <div class="empty-title">No bills tracked yet</div>
+      <div class="empty-desc">
+        Bills will appear here as they're introduced in recorded sittings. Every bill will show its stage, first appearance, latest activity, and the sittings where it was discussed.
+      </div>
+    </div>
+  ) : (
+    <div class="bills-list">
+      {bills.map(b => (
+        <a href={`/sitting/${b.sittingIds[b.sittingIds.length - 1]}`} class="bill-row">
+          <div class="bill-main">
+            <div class="bill-title">{b.title}</div>
+            <div class="bill-meta">
+              First seen {new Intl.DateTimeFormat('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }).format(new Date(b.firstSeen))}
+              · Last activity {new Intl.DateTimeFormat('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }).format(new Date(b.lastSeen))}
+              · {b.sittingIds.length} sitting{b.sittingIds.length === 1 ? '' : 's'}
+            </div>
+          </div>
+          <div class="bill-stage" style={`background:${stageColor[b.stage] ?? '#64748b'}22; color:${stageColor[b.stage] ?? '#64748b'}`}>
+            {b.stage}
+          </div>
+        </a>
+      ))}
+    </div>
+  )}
+</Base>
+
+<style>
+  .page-head { margin-bottom: 24px; }
+  .page-eyebrow { font-size: 11px; text-transform: uppercase; letter-spacing: 0.14em; color: rgb(100 116 139); font-weight: 600; }
+  .page-head h1 { margin: 6px 0 6px; font-size: 28px; font-weight: 700; letter-spacing: -0.02em; }
+  .page-sub { margin: 0; color: rgb(71 85 105); font-size: 14px; max-width: 620px; }
+  :root[data-theme="dark"] .page-sub,
+  :root:not([data-theme="light"]) .page-sub { color: rgb(148 163 184); }
+
+  .empty {
+    padding: 56px 32px; text-align: center;
+    border: 1px dashed rgb(203 213 225); border-radius: 16px;
+    max-width: 480px; margin: 24px auto;
+  }
+  :root[data-theme="dark"] .empty,
+  :root:not([data-theme="light"]) .empty { border-color: rgb(51 65 85); }
+  .empty-icon { font-size: 40px; opacity: 0.35; margin-bottom: 12px; }
+  .empty-title { font-size: 16px; font-weight: 600; margin-bottom: 8px; }
+  .empty-desc { font-size: 13px; color: rgb(100 116 139); line-height: 1.6; }
+
+  .bills-list { display: flex; flex-direction: column; gap: 8px; }
+  .bill-row {
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    padding: 16px 20px; background: white; border: 1px solid rgb(226 232 240); border-radius: 12px;
+    text-decoration: none; color: inherit;
+    transition: transform 120ms, border-color 120ms, box-shadow 120ms;
+  }
+  :root[data-theme="dark"] .bill-row,
+  :root:not([data-theme="light"]) .bill-row { background: rgb(15 23 42); border-color: rgb(30 41 59); }
+  .bill-row:hover {
+    transform: translateY(-1px); border-color: rgb(148 163 184);
+    box-shadow: 0 8px 20px -12px rgba(15,23,42,0.18);
+  }
+  .bill-main { flex: 1; min-width: 0; }
+  .bill-title { font-size: 15px; font-weight: 600; letter-spacing: -0.01em; }
+  .bill-meta { font-size: 12px; color: rgb(100 116 139); margin-top: 4px; }
+  .bill-stage {
+    padding: 4px 10px; border-radius: 6px;
+    font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
+    white-space: nowrap;
+  }
+</style>

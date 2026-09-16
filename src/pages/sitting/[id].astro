@@ -47,7 +47,7 @@ const attackPct = totalSpeaking > 0
 const allTopics = new Set<string>();
 for (const seg of sitting.segments) for (const t of seg.topics) allTopics.add(t);
 ---
-<Base title={`${dateFmt} — TN Assembly Watch`}>
+<Base title={`${dateFmt} — TN Assembly Watch`} current="sittings">
   <div class="space-y-6">
     <!-- Header -->
     <header class="flex flex-wrap items-end gap-x-6 gap-y-2">

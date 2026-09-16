@@ -1,0 +1,156 @@
+---
+export interface Props { current: 'calendar' | 'sittings' | 'mlas' | 'bills' | 'methodology' }
+const { current } = Astro.props;
+
+const items = [
+  { key: 'calendar',    href: '/',            label: 'Calendar',    icon: '▦', hint: 'Month view' },
+  { key: 'sittings',    href: '/sittings',    label: 'Sittings',    icon: '≡', hint: 'Chronological list' },
+  { key: 'mlas',        href: '/mlas',        label: 'MLAs',        icon: '◉', hint: 'Members & activity' },
+  { key: 'bills',       href: '/bills',       label: 'Bills',       icon: '§', hint: 'Legislation tracker' },
+  { key: 'methodology', href: '/about',       label: 'Methodology', icon: '?', hint: 'How we do this' },
+] as const;
+---
+<aside class="sidebar">
+  <div class="sidebar-brand">
+    <a href="/" class="brand-link">
+      <div class="brand-mark">TN</div>
+      <div>
+        <div class="brand-name">Assembly Watch</div>
+        <div class="brand-sub">Tamil Nadu · public dashboard</div>
+      </div>
+    </a>
+  </div>
+
+  <nav class="sidebar-nav">
+    {items.map(item => (
+      <a
+        href={item.href}
+        class:list={["sidebar-item", { active: item.key === current }]}
+        data-key={item.key}
+      >
+        <span class="sidebar-icon" aria-hidden="true">{item.icon}</span>
+        <span class="sidebar-label">
+          <span class="sidebar-label-main">{item.label}</span>
+          <span class="sidebar-label-hint">{item.hint}</span>
+        </span>
+      </a>
+    ))}
+  </nav>
+
+  <div class="sidebar-foot">
+    <a href="https://github.com/Roood-design/tn-assembly-watch" target="_blank" rel="noreferrer" class="foot-link">
+      <span>Open source</span>
+      <span class="foot-arrow">↗</span>
+    </a>
+    <div class="foot-tag">independent · non-partisan</div>
+  </div>
+</aside>
+
+<style>
+  .sidebar {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 240px;
+    padding: 20px 14px;
+    background: rgb(250 250 251);
+    border-right: 1px solid rgb(226 232 240);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  :global([data-theme="dark"]) .sidebar,
+  :global(:root:not([data-theme="light"])) .sidebar {
+    background: rgb(11 16 25);
+    border-right-color: rgb(30 41 59);
+  }
+
+  .brand-link {
+    display: flex; gap: 10px; align-items: center;
+    text-decoration: none; color: inherit;
+    padding: 4px 6px; border-radius: 8px;
+  }
+  .brand-mark {
+    width: 34px; height: 34px; border-radius: 8px;
+    background: linear-gradient(135deg, #e11d48 0%, #7c1d3b 100%);
+    color: white; font-weight: 700; font-size: 13px;
+    display: grid; place-items: center;
+    letter-spacing: -0.5px;
+  }
+  .brand-name { font-weight: 600; font-size: 14px; letter-spacing: -0.01em; }
+  .brand-sub  { font-size: 11px; color: rgb(100 116 139); margin-top: 1px; }
+
+  .sidebar-nav { display: flex; flex-direction: column; gap: 2px; flex: 1; }
+  .sidebar-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 10px; border-radius: 8px;
+    text-decoration: none; color: rgb(51 65 85);
+    transition: background 120ms ease, color 120ms ease;
+  }
+  .sidebar-item:hover { background: rgb(241 245 249); color: rgb(15 23 42); }
+  .sidebar-item.active {
+    background: rgb(15 23 42); color: white;
+  }
+  :global([data-theme="dark"]) .sidebar-item,
+  :global(:root:not([data-theme="light"])) .sidebar-item {
+    color: rgb(203 213 225);
+  }
+  :global([data-theme="dark"]) .sidebar-item:hover,
+  :global(:root:not([data-theme="light"])) .sidebar-item:hover {
+    background: rgb(30 41 59); color: white;
+  }
+  :global([data-theme="dark"]) .sidebar-item.active,
+  :global(:root:not([data-theme="light"])) .sidebar-item.active {
+    background: white; color: rgb(15 23 42);
+  }
+  .sidebar-icon {
+    width: 24px; height: 24px; border-radius: 6px;
+    display: grid; place-items: center;
+    font-size: 14px; opacity: 0.75;
+    background: rgba(148 163 184 / 0.12);
+  }
+  .sidebar-item.active .sidebar-icon { background: rgba(255 255 255 / 0.15); opacity: 1; }
+  .sidebar-label { display: flex; flex-direction: column; font-size: 13px; }
+  .sidebar-label-main { font-weight: 500; line-height: 1.2; }
+  .sidebar-label-hint { font-size: 10.5px; opacity: 0.62; margin-top: 1px; letter-spacing: 0.01em; }
+
+  .sidebar-foot { border-top: 1px solid rgb(226 232 240); padding-top: 12px; }
+  :global([data-theme="dark"]) .sidebar-foot,
+  :global(:root:not([data-theme="light"])) .sidebar-foot {
+    border-top-color: rgb(30 41 59);
+  }
+  .foot-link {
+    display: flex; align-items: center; justify-content: space-between;
+    color: rgb(51 65 85); font-size: 12px; text-decoration: none;
+    padding: 4px 6px; border-radius: 6px;
+  }
+  :global([data-theme="dark"]) .foot-link,
+  :global(:root:not([data-theme="light"])) .foot-link {
+    color: rgb(203 213 225);
+  }
+  .foot-link:hover { background: rgb(241 245 249); }
+  :global([data-theme="dark"]) .foot-link:hover,
+  :global(:root:not([data-theme="light"])) .foot-link:hover {
+    background: rgb(30 41 59);
+  }
+  .foot-arrow { opacity: 0.5; }
+  .foot-tag { font-size: 10.5px; color: rgb(148 163 184); margin-top: 6px; padding: 0 6px; }
+
+  @media (max-width: 900px) {
+    .sidebar {
+      position: static;
+      height: auto;
+      width: 100%;
+      flex-direction: row;
+      align-items: center;
+      padding: 10px 14px;
+      gap: 12px;
+    }
+    .sidebar-brand { flex-shrink: 0; }
+    .brand-sub { display: none; }
+    .sidebar-nav { flex-direction: row; overflow-x: auto; flex: 1; gap: 4px; }
+    .sidebar-item { padding: 6px 10px; }
+    .sidebar-label-hint { display: none; }
+    .sidebar-foot { display: none; }
+  }
+</style>

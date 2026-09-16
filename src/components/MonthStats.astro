@@ -1,0 +1,208 @@
+---
+import type { Sitting, Mla } from '../types';
+export interface Props {
+  sittings: Sitting[];        // sittings for the month being viewed
+  mlas: Mla[];
+  monthLabel: string;         // e.g. "September 2026"
+}
+const { sittings, mlas, monthLabel } = Astro.props;
+
+const totalSecs = sittings.reduce((a, s) => a + s.aggregates.total_active_seconds, 0);
+const totalHours = (totalSecs / 3600).toFixed(1);
+const sittingDays = sittings.length;
+
+const allianceOf = new Map(mlas.map(m => [m.mla_id, m.alliance] as const));
+
+let rulingSecs = 0, oppositionSecs = 0;
+const mlaSecs = new Map<string, { name: string; party: string; secs: number }>();
+const topicSecs = new Map<string, number>();
+let walkouts = 0, adjournments = 0, substantiveSecs = 0, attackSecs = 0, praiseSecs = 0;
+
+for (const s of sittings) {
+  substantiveSecs += s.aggregates.content_class_split.substantive ?? 0;
+  attackSecs += s.aggregates.content_class_split.attack ?? 0;
+  praiseSecs += s.aggregates.content_class_split.praise ?? 0;
+  walkouts += s.events.filter(e => e.type === 'walkout').length;
+  adjournments += s.events.filter(e => e.type === 'adjournment').length;
+
+  for (const r of s.aggregates.speaking_time_by_speaker) {
+    const cur = mlaSecs.get(r.mla_id) ?? { name: r.name, party: r.party, secs: 0 };
+    cur.secs += r.seconds;
+    mlaSecs.set(r.mla_id, cur);
+    const al = allianceOf.get(r.mla_id);
+    if (al === 'ruling') rulingSecs += r.seconds;
+    else if (al === 'opposition') oppositionSecs += r.seconds;
+  }
+  for (const seg of s.segments) {
+    const dur = Math.max(0, seg.end_seconds - seg.start_seconds);
+    for (const t of seg.topics) {
+      topicSecs.set(t, (topicSecs.get(t) ?? 0) + dur);
+    }
+  }
+}
+
+const totalMlaSecs = rulingSecs + oppositionSecs;
+const rulingPct = totalMlaSecs > 0 ? Math.round((rulingSecs / totalMlaSecs) * 100) : 0;
+const topSpeakers = [...mlaSecs.values()].sort((a, b) => b.secs - a.secs).slice(0, 5);
+const topTopics = [...topicSecs.entries()].sort((a, b) => b[1] - a[1]).slice(0, 6);
+
+const substantivePct = totalSecs > 0 ? Math.round((substantiveSecs / totalSecs) * 100) : 0;
+
+const partyColor: Record<string, string> = {
+  TVK: '#e11d48', DMK: '#111827', INC: '#009cde', AIADMK: '#00a651',
+  BJP: '#f97316', VCK: '#1e40af', PMK: '#facc15',
+};
+
+const empty = sittings.length === 0;
+---
+<section class="stats-wrap">
+  <header class="stats-head">
+    <h2>{monthLabel} at a glance</h2>
+    {!empty && <span class="stats-sub">based on {sittingDays} sitting{sittingDays === 1 ? '' : 's'}</span>}
+  </header>
+
+  {empty ? (
+    <div class="stats-empty">
+      No sittings recorded for {monthLabel} yet. Navigate to another month or check back after the next sitting is ingested.
+    </div>
+  ) : (
+    <>
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="stat-value">{sittingDays}</div>
+          <div class="stat-label">Sitting days</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">{totalHours}<span class="stat-unit">h</span></div>
+          <div class="stat-label">On the record</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">{rulingPct}<span class="stat-unit">%</span></div>
+          <div class="stat-label">Ruling floor share</div>
+          <div class="stat-bar">
+            <div class="stat-bar-fill" style={`width: ${rulingPct}%`} />
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">{substantivePct}<span class="stat-unit">%</span></div>
+          <div class="stat-label">Substantive time</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">{walkouts}</div>
+          <div class="stat-label">Walkout{walkouts === 1 ? '' : 's'}</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">{adjournments}</div>
+          <div class="stat-label">Adjournment{adjournments === 1 ? '' : 's'}</div>
+        </div>
+      </div>
+
+      <div class="two-col">
+        <div class="panel">
+          <h3 class="panel-title">Most active this month</h3>
+          <ol class="rank-list">
+            {topSpeakers.map(sp => (
+              <li>
+                <span class="rank-dot" style={`background:${partyColor[sp.party] ?? '#64748b'}`} />
+                <span class="rank-name">{sp.name}</span>
+                <span class="rank-party">{sp.party}</span>
+                <span class="rank-val">{Math.round(sp.secs / 60)}m</span>
+              </li>
+            ))}
+          </ol>
+        </div>
+
+        <div class="panel">
+          <h3 class="panel-title">Topics dominating discussion</h3>
+          <div class="topic-cloud">
+            {topTopics.map(([t, secs]) => {
+              const size = 11 + Math.min(9, Math.round(secs / 300));   // 11-20px
+              return (
+                <span class="topic" style={`font-size:${size}px`}>#{t} <em>{Math.round(secs / 60)}m</em></span>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </>
+  )}
+</section>
+
+<style>
+  .stats-wrap { display: flex; flex-direction: column; gap: 20px; }
+  .stats-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .stats-head h2 { margin: 0; font-size: 18px; font-weight: 600; letter-spacing: -0.01em; }
+  .stats-sub { font-size: 12px; color: rgb(100 116 139); }
+
+  .stats-empty {
+    padding: 32px; text-align: center;
+    color: rgb(100 116 139); font-size: 14px;
+    background: rgb(248 250 252); border-radius: 12px; border: 1px dashed rgb(203 213 225);
+  }
+  :root[data-theme="dark"] .stats-empty,
+  :root:not([data-theme="light"]) .stats-empty {
+    background: rgb(15 23 42); border-color: rgb(51 65 85);
+  }
+
+  .stat-grid {
+    display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px;
+  }
+  @media (max-width: 900px) { .stat-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  @media (max-width: 500px) { .stat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .stat-card {
+    padding: 14px 16px;
+    background: white; border: 1px solid rgb(226 232 240); border-radius: 12px;
+  }
+  :root[data-theme="dark"] .stat-card,
+  :root:not([data-theme="light"]) .stat-card {
+    background: rgb(15 23 42); border-color: rgb(30 41 59);
+  }
+  .stat-value {
+    font-size: 24px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.1;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+  }
+  .stat-unit { font-size: 14px; font-weight: 500; opacity: 0.7; margin-left: 2px; }
+  .stat-label {
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em;
+    color: rgb(100 116 139); margin-top: 4px;
+  }
+  .stat-bar { height: 3px; margin-top: 8px; background: rgb(241 245 249); border-radius: 2px; overflow: hidden; }
+  :root[data-theme="dark"] .stat-bar,
+  :root:not([data-theme="light"]) .stat-bar { background: rgb(30 41 59); }
+  .stat-bar-fill { height: 100%; background: linear-gradient(90deg, #e11d48, #f97316); }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 900px) { .two-col { grid-template-columns: 1fr; } }
+  .panel {
+    padding: 14px 16px;
+    background: white; border: 1px solid rgb(226 232 240); border-radius: 12px;
+  }
+  :root[data-theme="dark"] .panel,
+  :root:not([data-theme="light"]) .panel {
+    background: rgb(15 23 42); border-color: rgb(30 41 59);
+  }
+  .panel-title {
+    font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em;
+    color: rgb(100 116 139); margin: 0 0 12px;
+  }
+
+  .rank-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 6px; }
+  .rank-list li { display: flex; align-items: center; gap: 8px; font-size: 13px; }
+  .rank-dot { width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0; }
+  .rank-name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .rank-party { font-size: 11px; color: rgb(100 116 139); }
+  .rank-val { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; font-weight: 600; }
+
+  .topic-cloud { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: baseline; }
+  .topic {
+    color: rgb(51 65 85);
+    background: rgb(241 245 249);
+    padding: 2px 8px; border-radius: 999px;
+    display: inline-flex; gap: 4px; align-items: baseline;
+  }
+  :root[data-theme="dark"] .topic,
+  :root:not([data-theme="light"]) .topic {
+    background: rgb(30 41 59); color: rgb(226 232 240);
+  }
+  .topic em { font-style: normal; opacity: 0.55; font-size: 11px; font-family: 'JetBrains Mono', ui-monospace, monospace; }
+</style>

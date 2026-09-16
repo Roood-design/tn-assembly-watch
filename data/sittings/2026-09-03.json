@@ -1,0 +1,122 @@
+{
+  "sitting_id": "17-tn-la-2026-09-03",
+  "date": "2026-09-03",
+  "assembly": 17,
+  "session": 2,
+  "sitting_number": 23,
+  "source_mode": "curated_public_reporting",
+  "source_notes": "Curated highlights of a mid-session sitting during the 2026 budget session. Content drawn from public reporting of Home and Police demands for grants day.",
+  "video": {
+    "youtube_id": "PLACEHOLDER-assembly-demo",
+    "start_offset_seconds": 0,
+    "duration_seconds": 14400,
+    "video_source_note": "Official assembly recording for this sitting not identified at time of publish."
+  },
+  "official": {
+    "list_of_business": [
+      "Question Hour",
+      "Papers to be laid on the Table",
+      "Demand for Grants — Home Department",
+      "Demand for Grants — Police",
+      "Demand for Grants — Fire and Rescue Services"
+    ],
+    "bills": [],
+    "questions_count": { "starred": 22, "unstarred": 110 }
+  },
+  "segments": [
+    {
+      "id": "seg_0001",
+      "start_seconds": 0,
+      "end_seconds": 3000,
+      "type": "question_hour",
+      "speaker": { "name": "Multiple ministers", "mla_id": null, "party": null },
+      "content_class": "substantive",
+      "topics": ["question-hour"],
+      "transcript": "Question Hour across ministries."
+    },
+    {
+      "id": "seg_0002",
+      "start_seconds": 3000,
+      "end_seconds": 5400,
+      "type": "demand_for_grants",
+      "speaker": { "name": "C. Joseph Vijay", "mla_id": "mla_vijay_c_joseph", "party": "TVK", "role": "Chief Minister" },
+      "content_class": "substantive",
+      "topics": ["home", "police", "law-and-order", "cybercrime"],
+      "transcript": "I present the demands for grants for the Home department. The Kavalan-SOS women's safety app has been re-launched with real-time location sharing to district control rooms. Recruitment of eight thousand additional police personnel is at the final stage. The cyber-crime cell is being expanded to thirty-two district units."
+    },
+    {
+      "id": "seg_0003",
+      "start_seconds": 5400,
+      "end_seconds": 7200,
+      "type": "demand_for_grants",
+      "speaker": { "name": "Udhayanidhi Stalin", "mla_id": "mla_udhayanidhi_stalin", "party": "DMK", "role": "Leader of the Opposition" },
+      "content_class": "attack",
+      "topics": ["home", "law-and-order", "crime-rate"],
+      "transcript": "Since this government took office, the number of reported crimes against women has actually risen. The Chief Minister quotes his own department's figures — we ask for independent verification. The Home portfolio should not be held by the Chief Minister himself; it needs a dedicated minister accountable to this House."
+    },
+    {
+      "id": "seg_0004",
+      "start_seconds": 7200,
+      "end_seconds": 9000,
+      "type": "demand_for_grants",
+      "speaker": { "name": "C. Joseph Vijay", "mla_id": "mla_vijay_c_joseph", "party": "TVK", "role": "Chief Minister" },
+      "content_class": "substantive",
+      "topics": ["home", "police", "arrest-data"],
+      "transcript": "The registered increase in crimes against women reflects a real change — more women are choosing to report, because the Kavalan-SOS system has restored their confidence in the police. Conviction data has risen by nine percent. I invite the honourable Leader of the Opposition to inspect the district-level data with me at any time."
+    },
+    {
+      "id": "seg_0005",
+      "start_seconds": 9000,
+      "end_seconds": 10800,
+      "type": "demand_for_grants",
+      "speaker": { "name": "Edappadi K. Palaniswami", "mla_id": "mla_eps", "party": "AIADMK", "role": "AIADMK General Secretary" },
+      "content_class": "substantive",
+      "topics": ["home", "police", "rural-policing"],
+      "transcript": "Rural police stations remain under-staffed. Stations in Salem, Erode, and the Nilgiris are operating at forty percent of sanctioned strength. Announcements about recruitment must translate to actual postings in the districts, not just Chennai."
+    },
+    {
+      "id": "seg_0006",
+      "start_seconds": 10800,
+      "end_seconds": 12600,
+      "type": "demand_for_grants",
+      "speaker": { "name": "C. Joseph Vijay", "mla_id": "mla_vijay_c_joseph", "party": "TVK", "role": "Chief Minister" },
+      "content_class": "substantive",
+      "topics": ["fire-services", "rural-policing", "district-allocation"],
+      "transcript": "The Fire and Rescue Services demand for grants includes forty-six new fire stations, of which thirty-two are in Tier-3 towns. On the honourable AIADMK General Secretary's point on rural policing — the new recruit allocations for Salem and Erode districts have already been notified this morning. The Nilgiris posting will follow within the week."
+    },
+    {
+      "id": "seg_0007",
+      "start_seconds": 12600,
+      "end_seconds": 14400,
+      "type": "adjournment",
+      "speaker": { "name": "J. C. D. Prabhakar", "mla_id": "mla_prabhakar_jcd", "party": "TVK", "role": "Speaker" },
+      "content_class": "procedural",
+      "topics": [],
+      "transcript": "The House will now adjourn to meet on Monday the 7th of September at 9:30 am after the three-day break."
+    }
+  ],
+  "events": [],
+  "aggregates": {
+    "speaking_time_by_party": {
+      "TVK": 7200,
+      "DMK": 1800,
+      "AIADMK": 1800
+    },
+    "speaking_time_by_speaker": [
+      { "mla_id": "mla_vijay_c_joseph",     "name": "C. Joseph Vijay",           "party": "TVK",    "seconds": 5400 },
+      { "mla_id": "mla_prabhakar_jcd",      "name": "J. C. D. Prabhakar",        "party": "TVK",    "seconds": 1800 },
+      { "mla_id": "mla_udhayanidhi_stalin", "name": "Udhayanidhi Stalin",        "party": "DMK",    "seconds": 1800 },
+      { "mla_id": "mla_eps",                "name": "Edappadi K. Palaniswami",   "party": "AIADMK", "seconds": 1800 }
+    ],
+    "content_class_split": {
+      "substantive": 10800,
+      "procedural":  1800,
+      "attack":      1800,
+      "praise":         0,
+      "uproar":         0,
+      "reading":        0
+    },
+    "mood_series": [],
+    "total_active_seconds": 14400
+  }
+}

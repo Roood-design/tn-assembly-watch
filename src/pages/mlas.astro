@@ -1,0 +1,178 @@
+---
+import Base from '../layouts/Base.astro';
+import { allSittings, allMlas } from '../lib/sittings';
+import { PARTY_COLORS } from '../types';
+import type { PartyCode } from '../types';
+
+// Aggregate across every sitting.
+interface Row {
+  mla_id: string;
+  name: string;
+  party: PartyCode;
+  alliance: string;
+  constituency: string;
+  roles: string[];
+  total_seconds: number;
+  sittings_appeared: number;
+  substantive_secs: number;
+  attack_secs: number;
+  praise_secs: number;
+}
+
+const byId = new Map<string, Row>();
+for (const m of allMlas) {
+  byId.set(m.mla_id, {
+    mla_id: m.mla_id,
+    name: m.name,
+    party: m.party,
+    alliance: m.alliance,
+    constituency: m.constituency,
+    roles: m.roles ?? [],
+    total_seconds: 0,
+    sittings_appeared: 0,
+    substantive_secs: 0,
+    attack_secs: 0,
+    praise_secs: 0,
+  });
+}
+
+for (const s of allSittings) {
+  const seen = new Set<string>();
+  for (const seg of s.segments) {
+    const id = seg.speaker.mla_id;
+    if (!id) continue;
+    const row = byId.get(id);
+    if (!row) continue;
+    const dur = Math.max(0, seg.end_seconds - seg.start_seconds);
+    row.total_seconds += dur;
+    if (seg.content_class === 'substantive') row.substantive_secs += dur;
+    if (seg.content_class === 'attack') row.attack_secs += dur;
+    if (seg.content_class === 'praise') row.praise_secs += dur;
+    seen.add(id);
+  }
+  for (const id of seen) {
+    const row = byId.get(id);
+    if (row) row.sittings_appeared += 1;
+  }
+}
+
+const active = [...byId.values()].filter(r => r.total_seconds > 0).sort((a, b) => b.total_seconds - a.total_seconds);
+const roster = [...byId.values()].filter(r => r.total_seconds === 0);
+
+const rulingCount = allMlas.filter(m => m.alliance === 'ruling').length;
+const oppositionCount = allMlas.filter(m => m.alliance === 'opposition').length;
+---
+<Base title="MLAs — TN Assembly Watch" current="mlas">
+  <header class="page-head">
+    <div class="page-eyebrow">Members</div>
+    <h1>MLAs of the 17th Assembly</h1>
+    <p class="page-sub">
+      {allMlas.length} members in the roster · {rulingCount} ruling · {oppositionCount} opposition ·
+      {active.length} have spoken on the recorded sittings so far.
+    </p>
+  </header>
+
+  <section>
+    <h2 class="section-title">Speaking activity</h2>
+    <div class="mla-grid">
+      {active.map((r, i) => {
+        const mins = Math.round(r.total_seconds / 60);
+        const maxSecs = active[0]?.total_seconds ?? 1;
+        const pct = Math.round((r.total_seconds / maxSecs) * 100);
+        const subPct = r.total_seconds > 0 ? Math.round((r.substantive_secs / r.total_seconds) * 100) : 0;
+        return (
+          <a href={`/mla/${r.mla_id}`} class="mla-card">
+            <div class="mla-rank">#{i + 1}</div>
+            <div class="mla-info">
+              <div class="mla-name">{r.name}</div>
+              <div class="mla-meta">
+                <span class="mla-party" style={`background:${PARTY_COLORS[r.party]}20; color:${PARTY_COLORS[r.party]}`}>{r.party}</span>
+                <span class="mla-constituency">{r.constituency}</span>
+              </div>
+              {r.roles.length > 0 && <div class="mla-roles">{r.roles.join(' · ')}</div>}
+              <div class="mla-bar">
+                <div class="mla-bar-fill" style={`width:${pct}%; background:${PARTY_COLORS[r.party]}`} />
+              </div>
+              <div class="mla-nums">
+                <span><strong>{mins}m</strong> spoken</span>
+                <span><strong>{r.sittings_appeared}</strong> sitting{r.sittings_appeared === 1 ? '' : 's'}</span>
+                <span><strong>{subPct}%</strong> substantive</span>
+              </div>
+            </div>
+          </a>
+        );
+      })}
+    </div>
+  </section>
+
+  {roster.length > 0 && (
+    <section>
+      <h2 class="section-title">Roster (yet to be tracked)</h2>
+      <div class="roster">
+        {roster.map(r => (
+          <a href={`/mla/${r.mla_id}`} class="roster-chip">
+            <span class="roster-dot" style={`background:${PARTY_COLORS[r.party]}`} />
+            <span>{r.name}</span>
+            <span class="roster-party">{r.party}</span>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+</Base>
+
+<style>
+  .page-head { margin-bottom: 32px; }
+  .page-eyebrow { font-size: 11px; text-transform: uppercase; letter-spacing: 0.14em; color: rgb(100 116 139); font-weight: 600; }
+  .page-head h1 { margin: 6px 0 6px; font-size: 28px; font-weight: 700; letter-spacing: -0.02em; }
+  .page-sub { margin: 0; color: rgb(71 85 105); font-size: 14px; }
+  :root[data-theme="dark"] .page-sub,
+  :root:not([data-theme="light"]) .page-sub { color: rgb(148 163 184); }
+
+  .section-title { font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: rgb(100 116 139); margin: 0 0 12px; }
+
+  .mla-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; margin-bottom: 32px; }
+  .mla-card {
+    display: flex; gap: 14px;
+    padding: 16px; background: white; border: 1px solid rgb(226 232 240); border-radius: 12px;
+    text-decoration: none; color: inherit;
+    transition: transform 120ms, border-color 120ms, box-shadow 120ms;
+  }
+  :root[data-theme="dark"] .mla-card,
+  :root:not([data-theme="light"]) .mla-card { background: rgb(15 23 42); border-color: rgb(30 41 59); }
+  .mla-card:hover {
+    transform: translateY(-1px); border-color: rgb(148 163 184);
+    box-shadow: 0 8px 20px -12px rgba(15,23,42,0.18);
+  }
+  .mla-rank {
+    font-size: 20px; font-weight: 700; color: rgb(148 163 184);
+    font-family: 'JetBrains Mono', ui-monospace, monospace; min-width: 34px;
+  }
+  .mla-info { flex: 1; min-width: 0; }
+  .mla-name { font-size: 15px; font-weight: 600; letter-spacing: -0.01em; }
+  .mla-meta { display: flex; gap: 8px; align-items: center; margin-top: 4px; }
+  .mla-party { font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 4px; letter-spacing: 0.04em; }
+  .mla-constituency { font-size: 12px; color: rgb(100 116 139); }
+  .mla-roles { font-size: 11px; color: rgb(100 116 139); margin-top: 4px; }
+  .mla-bar { height: 4px; background: rgb(241 245 249); margin-top: 10px; border-radius: 2px; overflow: hidden; }
+  :root[data-theme="dark"] .mla-bar,
+  :root:not([data-theme="light"]) .mla-bar { background: rgb(30 41 59); }
+  .mla-bar-fill { height: 100%; }
+  .mla-nums { display: flex; gap: 12px; margin-top: 8px; font-size: 11px; color: rgb(100 116 139); }
+  .mla-nums strong { color: rgb(15 23 42); font-family: 'JetBrains Mono', ui-monospace, monospace; margin-right: 3px; font-size: 12px; }
+  :root[data-theme="dark"] .mla-nums strong,
+  :root:not([data-theme="light"]) .mla-nums strong { color: rgb(241 245 249); }
+
+  .roster { display: flex; flex-wrap: wrap; gap: 8px; }
+  .roster-chip {
+    display: inline-flex; gap: 6px; align-items: center;
+    padding: 5px 10px; border-radius: 999px;
+    background: rgb(248 250 252); border: 1px solid rgb(226 232 240);
+    font-size: 12px; text-decoration: none; color: inherit;
+  }
+  :root[data-theme="dark"] .roster-chip,
+  :root:not([data-theme="light"]) .roster-chip { background: rgb(15 23 42); border-color: rgb(30 41 59); }
+  .roster-chip:hover { border-color: rgb(148 163 184); }
+  .roster-dot { width: 6px; height: 6px; border-radius: 999px; }
+  .roster-party { font-size: 10px; color: rgb(100 116 139); font-weight: 600; }
+</style>

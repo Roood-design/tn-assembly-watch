@@ -1,0 +1,89 @@
+---
+import Base from '../layouts/Base.astro';
+import { allSittings } from '../lib/sittings';
+
+const sittings = [...allSittings].sort((a, b) => b.date.localeCompare(a.date));
+---
+<Base title="Sittings — TN Assembly Watch" current="sittings">
+  <header class="page-head">
+    <div class="page-eyebrow">Archive</div>
+    <h1>All sittings</h1>
+    <p class="page-sub">Every recorded sitting, most recent first.</p>
+  </header>
+
+  <div class="sittings-list">
+    {sittings.length === 0 && (
+      <div class="empty">No sittings recorded yet.</div>
+    )}
+    {sittings.map(s => {
+      const dateFmt = new Intl.DateTimeFormat('en-IN', {
+        weekday: 'short', year: 'numeric', month: 'long', day: 'numeric',
+      }).format(new Date(s.date));
+      const hours = (s.aggregates.total_active_seconds / 3600).toFixed(1);
+      const walkouts = s.events.filter(e => e.type === 'walkout').length;
+      return (
+        <a href={`/sitting/${s.sitting_id}`} class="sitting-row">
+          <div class="sr-date">
+            <div class="sr-date-main">{dateFmt}</div>
+            <div class="sr-date-sub">Sitting {s.sitting_number} · Session {s.session}</div>
+          </div>
+          <div class="sr-list">
+            {s.official.list_of_business.slice(0, 4).map(item => (
+              <span class="sr-chip">{item}</span>
+            ))}
+            {s.official.list_of_business.length > 4 && <span class="sr-more">+{s.official.list_of_business.length - 4}</span>}
+          </div>
+          <div class="sr-stats">
+            <span class="sr-stat"><strong>{hours}h</strong> sat</span>
+            <span class="sr-stat"><strong>{s.segments.length}</strong> segments</span>
+            {walkouts > 0 && <span class="sr-stat sr-walk"><strong>{walkouts}</strong> walkout</span>}
+          </div>
+        </a>
+      );
+    })}
+  </div>
+</Base>
+
+<style>
+  .page-head { margin-bottom: 24px; }
+  .page-eyebrow { font-size: 11px; text-transform: uppercase; letter-spacing: 0.14em; color: rgb(100 116 139); font-weight: 600; }
+  .page-head h1 { margin: 6px 0 6px; font-size: 28px; font-weight: 700; letter-spacing: -0.02em; }
+  .page-sub { margin: 0; color: rgb(71 85 105); font-size: 14px; }
+  :root[data-theme="dark"] .page-sub,
+  :root:not([data-theme="light"]) .page-sub { color: rgb(148 163 184); }
+
+  .sittings-list { display: flex; flex-direction: column; gap: 8px; }
+  .empty { padding: 40px; text-align: center; color: rgb(100 116 139); border: 1px dashed rgb(203 213 225); border-radius: 12px; }
+
+  .sitting-row {
+    display: grid; grid-template-columns: 220px 1fr auto; gap: 16px; align-items: center;
+    padding: 14px 16px; background: white; border: 1px solid rgb(226 232 240); border-radius: 12px;
+    text-decoration: none; color: inherit;
+    transition: transform 120ms, border-color 120ms, box-shadow 120ms;
+  }
+  :root[data-theme="dark"] .sitting-row,
+  :root:not([data-theme="light"]) .sitting-row { background: rgb(15 23 42); border-color: rgb(30 41 59); }
+  .sitting-row:hover {
+    transform: translateY(-1px);
+    border-color: rgb(148 163 184);
+    box-shadow: 0 8px 20px -12px rgba(15,23,42,0.18);
+  }
+  @media (max-width: 800px) { .sitting-row { grid-template-columns: 1fr; } }
+
+  .sr-date-main { font-weight: 600; font-size: 15px; }
+  .sr-date-sub { font-size: 11px; color: rgb(100 116 139); margin-top: 2px; }
+  .sr-list { display: flex; flex-wrap: wrap; gap: 6px; min-width: 0; }
+  .sr-chip {
+    font-size: 11px; padding: 2px 8px; border-radius: 999px;
+    background: rgb(241 245 249); color: rgb(51 65 85); white-space: nowrap;
+  }
+  :root[data-theme="dark"] .sr-chip,
+  :root:not([data-theme="light"]) .sr-chip { background: rgb(30 41 59); color: rgb(203 213 225); }
+  .sr-more { font-size: 11px; color: rgb(100 116 139); align-self: center; }
+
+  .sr-stats { display: flex; gap: 12px; font-size: 12px; color: rgb(100 116 139); }
+  .sr-stat strong { color: rgb(15 23 42); font-family: 'JetBrains Mono', ui-monospace, monospace; margin-right: 3px; }
+  :root[data-theme="dark"] .sr-stat strong,
+  :root:not([data-theme="light"]) .sr-stat strong { color: rgb(241 245 249); }
+  .sr-walk strong { color: #e11d48; }
+</style>

@@ -1,48 +1,77 @@
 ---
 import Base from '../layouts/Base.astro';
-import type { Sitting } from '../types';
+import Calendar from '../components/Calendar';
+import MonthStats from '../components/MonthStats.astro';
+import { allSittings, allMlas } from '../lib/sittings';
 
-const sittingModules = import.meta.glob('../../data/sittings/*.json', { eager: true });
-const sittings = Object.values(sittingModules)
-  .map((mod: any) => (mod.default ?? mod) as Sitting)
-  .sort((a, b) => b.date.localeCompare(a.date));
+const today = new Date();
+const todayIso = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+
+// Pick the month of the most recent sitting to open the calendar on; fall back to today.
+const latestSitting = [...allSittings].sort((a, b) => b.date.localeCompare(a.date))[0];
+const openMonth = latestSitting ? latestSitting.date.slice(0, 7) : todayIso.slice(0, 7);
+const [openYear, openMonthNum] = openMonth.split('-').map(Number);
+const MONTH_NAMES = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+const monthLabel = `${MONTH_NAMES[openMonthNum - 1]} ${openYear}`;
+
+const monthSittings = allSittings.filter(s => s.date.startsWith(openMonth));
 ---
-<Base title="TN Assembly Watch — Calendar">
-  <div class="space-y-6">
-    <section>
-      <h1 class="text-2xl font-semibold">Tamil Nadu Assembly — What happened</h1>
-      <p class="mt-1 text-slate-600 dark:text-slate-400 max-w-2xl">
-        A public, post-EOD summary of every sitting. Timeline, speakers, topics, and mood —
-        every claim links back to the exact minute of the assembly video.
+<Base title="TN Assembly Watch" current="calendar">
+  <section class="intro">
+    <div class="intro-copy">
+      <div class="intro-eyebrow">A public dashboard for civic accountability</div>
+      <h1 class="intro-title">Every sitting of the Tamil Nadu Legislative Assembly, unpacked.</h1>
+      <p class="intro-sub">
+        See how time was spent, who held the floor, what was actually debated —
+        and jump to the exact minute of the video for any moment.
       </p>
-    </section>
+    </div>
+    <div class="intro-marks">
+      <div class="mark"><div class="mark-value">{allSittings.length}</div><div class="mark-label">sittings tracked</div></div>
+      <div class="mark"><div class="mark-value">{allMlas.length}</div><div class="mark-label">MLAs in the roster</div></div>
+      <div class="mark"><div class="mark-value">17<span class="mark-th">th</span></div><div class="mark-label">Tamil Nadu Assembly</div></div>
+    </div>
+  </section>
 
-    <section class="rounded-lg border border-slate-200 dark:border-slate-800 divide-y divide-slate-200 dark:divide-slate-800">
-      {sittings.map(s => {
-        const dateFmt = new Intl.DateTimeFormat('en-IN', {
-          weekday: 'short', year: 'numeric', month: 'short', day: 'numeric',
-        }).format(new Date(s.date));
-        const hours = (s.aggregates.total_active_seconds / 3600).toFixed(1);
-        return (
-          <a
-            href={`/sitting/${s.sitting_id}`}
-            class="flex items-center gap-4 px-4 py-3 hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors"
-          >
-            <div class="text-sm w-40 shrink-0">
-              <div class="font-medium">{dateFmt}</div>
-              <div class="text-xs text-slate-500">Sitting {s.sitting_number}</div>
-            </div>
-            <div class="text-sm text-slate-600 dark:text-slate-400 grow min-w-0 truncate">
-              {s.official.list_of_business.slice(0, 3).join(' · ')}
-              {s.official.list_of_business.length > 3 && ' …'}
-            </div>
-            <div class="text-xs text-slate-500 shrink-0 tabular-nums">{hours}h · {s.segments.length} segments</div>
-          </a>
-        );
-      })}
-      {sittings.length === 0 && (
-        <div class="px-4 py-8 text-center text-slate-500 text-sm">No sittings yet.</div>
-      )}
-    </section>
-  </div>
+  <section class="cal-section">
+    <Calendar client:load sittings={allSittings} todayIso={todayIso} initialMonth={openMonth} />
+  </section>
+
+  <section class="stats-section">
+    <MonthStats sittings={monthSittings} mlas={allMlas} monthLabel={monthLabel} />
+  </section>
 </Base>
+
+<style>
+  .intro { display: grid; grid-template-columns: 2fr 1fr; gap: 24px; margin-bottom: 28px; align-items: end; }
+  @media (max-width: 900px) { .intro { grid-template-columns: 1fr; } }
+  .intro-eyebrow {
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.14em;
+    color: #e11d48; font-weight: 600;
+  }
+  .intro-title {
+    margin: 8px 0 12px; font-size: 34px; font-weight: 700;
+    letter-spacing: -0.03em; line-height: 1.1; max-width: 720px;
+  }
+  .intro-sub { margin: 0; color: rgb(71 85 105); max-width: 620px; font-size: 15px; line-height: 1.5; }
+  :root[data-theme="dark"] .intro-sub,
+  :root:not([data-theme="light"]) .intro-sub { color: rgb(148 163 184); }
+
+  .intro-marks { display: flex; gap: 12px; }
+  .mark {
+    flex: 1; padding: 12px 14px;
+    background: rgb(248 250 252); border-radius: 12px; border: 1px solid rgb(226 232 240);
+  }
+  :root[data-theme="dark"] .mark,
+  :root:not([data-theme="light"]) .mark {
+    background: rgb(15 23 42); border-color: rgb(30 41 59);
+  }
+  .mark-value {
+    font-size: 26px; font-weight: 700; letter-spacing: -0.02em; line-height: 1;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+  }
+  .mark-th { font-size: 12px; opacity: 0.5; margin-left: 1px; }
+  .mark-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: rgb(100 116 139); margin-top: 6px; }
+
+  .cal-section, .stats-section { margin-bottom: 28px; }
+</style>

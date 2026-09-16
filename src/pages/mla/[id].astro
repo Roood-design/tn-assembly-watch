@@ -1,0 +1,209 @@
+---
+import Base from '../../layouts/Base.astro';
+import { allSittings, allMlas } from '../../lib/sittings';
+import { PARTY_COLORS, CONTENT_CLASS_COLORS, CONTENT_CLASS_LABELS, SEGMENT_TYPE_LABELS } from '../../types';
+import type { Mla, Sitting, Segment } from '../../types';
+
+export async function getStaticPaths() {
+  const mlas = (await import('../../../data/mlas.json')).default as Mla[];
+  return mlas.map(m => ({ params: { id: m.mla_id }, props: { mla: m } }));
+}
+
+const { mla } = Astro.props as { mla: Mla };
+
+interface Appearance { sitting: Sitting; segments: Segment[]; totalSeconds: number; }
+const appearances: Appearance[] = [];
+let totalSecs = 0;
+const contentSplit: Record<string, number> = { substantive: 0, procedural: 0, praise: 0, attack: 0, uproar: 0, reading: 0 };
+const topicSecs = new Map<string, number>();
+
+for (const s of allSittings) {
+  const segs = s.segments.filter(seg => seg.speaker.mla_id === mla.mla_id);
+  if (segs.length === 0) continue;
+  const dur = segs.reduce((a, seg) => a + (seg.end_seconds - seg.start_seconds), 0);
+  totalSecs += dur;
+  for (const seg of segs) {
+    const d = Math.max(0, seg.end_seconds - seg.start_seconds);
+    contentSplit[seg.content_class] = (contentSplit[seg.content_class] ?? 0) + d;
+    for (const t of seg.topics) topicSecs.set(t, (topicSecs.get(t) ?? 0) + d);
+  }
+  appearances.push({ sitting: s, segments: segs, totalSeconds: dur });
+}
+
+appearances.sort((a, b) => b.sitting.date.localeCompare(a.sitting.date));
+const topTopics = [...topicSecs.entries()].sort((a, b) => b[1] - a[1]).slice(0, 8);
+---
+<Base title={`${mla.name} — TN Assembly Watch`} current="mlas">
+  <a href="/mlas" class="back-link">← All MLAs</a>
+
+  <header class="mla-head">
+    <div class="mla-mono" style={`background:${PARTY_COLORS[mla.party]}`}>
+      {mla.name.split(' ').map(s => s[0]).slice(0, 2).join('')}
+    </div>
+    <div>
+      <h1 class="mla-title">{mla.name}</h1>
+      <div class="mla-sub">
+        <span class="mla-pill" style={`background:${PARTY_COLORS[mla.party]}22; color:${PARTY_COLORS[mla.party]}`}>{mla.party}</span>
+        <span>{mla.constituency}</span>
+        <span class="alliance-tag alliance-{mla.alliance}">{mla.alliance}</span>
+      </div>
+      {mla.roles && mla.roles.length > 0 && (
+        <div class="mla-roles">{mla.roles.join(' · ')}</div>
+      )}
+    </div>
+  </header>
+
+  {appearances.length === 0 ? (
+    <div class="empty">
+      No recorded speech from {mla.name} yet. Their segments will appear here once they speak
+      in a sitting the pipeline has ingested.
+    </div>
+  ) : (
+    <>
+      <div class="stat-row">
+        <div class="stat">
+          <div class="stat-value">{Math.round(totalSecs / 60)}<span class="stat-unit">m</span></div>
+          <div class="stat-label">Total speaking time</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">{appearances.length}</div>
+          <div class="stat-label">Sitting{appearances.length === 1 ? '' : 's'} spoken in</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">{Math.round(totalSecs / 60 / appearances.length)}<span class="stat-unit">m</span></div>
+          <div class="stat-label">Average per sitting</div>
+        </div>
+      </div>
+
+      <section class="panel">
+        <h2 class="panel-title">Time by content class</h2>
+        <div class="split-bar">
+          {(Object.entries(contentSplit) as [keyof typeof contentSplit, number][])
+            .filter(([, secs]) => secs > 0)
+            .sort((a, b) => b[1] - a[1])
+            .map(([cls, secs]) => {
+              const pct = Math.round((secs / totalSecs) * 100);
+              return (
+                <div class="split-seg" style={`width:${pct}%; background:${CONTENT_CLASS_COLORS[cls]}`} title={`${CONTENT_CLASS_LABELS[cls]} — ${pct}%`}>
+                  {pct >= 10 && <span>{CONTENT_CLASS_LABELS[cls]} · {pct}%</span>}
+                </div>
+              );
+            })}
+        </div>
+      </section>
+
+      {topTopics.length > 0 && (
+        <section class="panel">
+          <h2 class="panel-title">Topics {mla.name.split(' ')[0]} speaks about</h2>
+          <div class="topic-cloud">
+            {topTopics.map(([t, secs]) => (
+              <span class="topic">#{t} <em>{Math.round(secs / 60)}m</em></span>
+            ))}
+          </div>
+        </section>
+      )}
+
+      <section>
+        <h2 class="section-title">Segments</h2>
+        <div class="segments">
+          {appearances.map(app => (
+            <div class="app">
+              <a href={`/sitting/${app.sitting.sitting_id}`} class="app-head">
+                <div class="app-date">{new Intl.DateTimeFormat('en-IN', { weekday: 'short', day: 'numeric', month: 'long', year: 'numeric' }).format(new Date(app.sitting.date))}</div>
+                <div class="app-meta">{app.segments.length} segment{app.segments.length === 1 ? '' : 's'} · {Math.round(app.totalSeconds / 60)}m spoken</div>
+              </a>
+              <div class="app-segs">
+                {app.segments.map(seg => (
+                  <a href={`/sitting/${app.sitting.sitting_id}#${seg.id}`} class="app-seg">
+                    <div class="seg-head">
+                      <span class="seg-tag" style={`background:${CONTENT_CLASS_COLORS[seg.content_class]}`}>{CONTENT_CLASS_LABELS[seg.content_class]}</span>
+                      <span class="seg-type">{SEGMENT_TYPE_LABELS[seg.type]}</span>
+                      <span class="seg-time">{Math.floor(seg.start_seconds / 60)}m</span>
+                    </div>
+                    <p>{seg.transcript.length > 220 ? seg.transcript.slice(0, 220) + '…' : seg.transcript}</p>
+                  </a>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+    </>
+  )}
+</Base>
+
+<style>
+  .back-link { display: inline-block; margin-bottom: 12px; font-size: 12px; color: rgb(100 116 139); text-decoration: none; }
+  .back-link:hover { color: rgb(15 23 42); }
+
+  .mla-head { display: flex; gap: 20px; align-items: center; margin-bottom: 28px; }
+  .mla-mono {
+    width: 68px; height: 68px; border-radius: 14px;
+    display: grid; place-items: center;
+    font-weight: 700; font-size: 22px; color: white; letter-spacing: -0.02em;
+    flex-shrink: 0;
+  }
+  .mla-title { margin: 0; font-size: 30px; font-weight: 700; letter-spacing: -0.02em; }
+  .mla-sub { display: flex; gap: 10px; align-items: center; margin-top: 6px; font-size: 13px; color: rgb(100 116 139); }
+  .mla-pill { padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 700; letter-spacing: 0.04em; }
+  .alliance-tag { text-transform: capitalize; }
+  .alliance-ruling::before { content: '● '; color: #e11d48; }
+  .alliance-opposition::before { content: '● '; color: #64748b; }
+  .mla-roles { font-size: 13px; color: rgb(51 65 85); margin-top: 4px; }
+
+  .stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 28px; }
+  @media (max-width: 700px) { .stat-row { grid-template-columns: 1fr; } }
+  .stat { padding: 14px 16px; background: white; border: 1px solid rgb(226 232 240); border-radius: 12px; }
+  :root[data-theme="dark"] .stat,
+  :root:not([data-theme="light"]) .stat { background: rgb(15 23 42); border-color: rgb(30 41 59); }
+  .stat-value { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 26px; font-weight: 700; letter-spacing: -0.02em; }
+  .stat-unit { font-size: 14px; opacity: 0.7; }
+  .stat-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: rgb(100 116 139); margin-top: 4px; }
+
+  .panel { padding: 16px; background: white; border: 1px solid rgb(226 232 240); border-radius: 12px; margin-bottom: 20px; }
+  :root[data-theme="dark"] .panel,
+  :root:not([data-theme="light"]) .panel { background: rgb(15 23 42); border-color: rgb(30 41 59); }
+  .panel-title { font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: rgb(100 116 139); margin: 0 0 12px; }
+
+  .split-bar { display: flex; height: 34px; border-radius: 6px; overflow: hidden; }
+  .split-seg {
+    display: flex; align-items: center; padding: 0 10px;
+    font-size: 11px; font-weight: 600; color: white; overflow: hidden; white-space: nowrap;
+  }
+
+  .topic-cloud { display: flex; flex-wrap: wrap; gap: 6px; }
+  .topic {
+    padding: 4px 10px; border-radius: 999px; background: rgb(241 245 249);
+    color: rgb(51 65 85); font-size: 12px; display: inline-flex; gap: 4px; align-items: baseline;
+  }
+  :root[data-theme="dark"] .topic,
+  :root:not([data-theme="light"]) .topic { background: rgb(30 41 59); color: rgb(226 232 240); }
+  .topic em { font-style: normal; opacity: 0.55; font-family: 'JetBrains Mono', ui-monospace, monospace; }
+
+  .section-title { font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: rgb(100 116 139); margin: 24px 0 12px; }
+  .segments { display: flex; flex-direction: column; gap: 16px; }
+  .app { border: 1px solid rgb(226 232 240); border-radius: 12px; overflow: hidden; background: white; }
+  :root[data-theme="dark"] .app,
+  :root:not([data-theme="light"]) .app { background: rgb(15 23 42); border-color: rgb(30 41 59); }
+  .app-head { display: flex; justify-content: space-between; padding: 10px 14px; background: rgb(248 250 252); text-decoration: none; color: inherit; border-bottom: 1px solid rgb(226 232 240); }
+  :root[data-theme="dark"] .app-head,
+  :root:not([data-theme="light"]) .app-head { background: rgb(11 16 25); border-bottom-color: rgb(30 41 59); }
+  .app-head:hover { background: rgb(241 245 249); }
+  .app-date { font-weight: 600; font-size: 13px; }
+  .app-meta { font-size: 11px; color: rgb(100 116 139); }
+
+  .app-segs { padding: 8px; display: flex; flex-direction: column; gap: 6px; }
+  .app-seg { display: block; padding: 10px 12px; border-radius: 8px; text-decoration: none; color: inherit; border: 1px solid transparent; }
+  .app-seg:hover { border-color: rgb(226 232 240); background: rgb(248 250 252); }
+  :root[data-theme="dark"] .app-seg:hover,
+  :root:not([data-theme="light"]) .app-seg:hover { border-color: rgb(30 41 59); background: rgb(11 16 25); }
+  .seg-head { display: flex; gap: 8px; align-items: center; margin-bottom: 6px; }
+  .seg-tag { padding: 2px 6px; border-radius: 3px; font-size: 9px; text-transform: uppercase; letter-spacing: 0.06em; color: white; font-weight: 700; }
+  .seg-type { font-size: 11px; color: rgb(100 116 139); }
+  .seg-time { font-size: 11px; margin-left: auto; font-family: 'JetBrains Mono', ui-monospace, monospace; color: rgb(100 116 139); }
+  .app-seg p { margin: 0; font-size: 13px; line-height: 1.5; color: rgb(51 65 85); }
+  :root[data-theme="dark"] .app-seg p,
+  :root:not([data-theme="light"]) .app-seg p { color: rgb(203 213 225); }
+
+  .empty { padding: 40px; text-align: center; color: rgb(100 116 139); border: 1px dashed rgb(203 213 225); border-radius: 12px; }
+</style>
